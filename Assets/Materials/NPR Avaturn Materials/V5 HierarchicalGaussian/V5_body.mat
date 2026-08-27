@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: V5_body
+  m_Shader: {fileID: 4800000, guid: 5e2d1161c12f7451b9668c718d55f4b4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DETAILMODE_DEPTH
+  m_InvalidKeywords:
+  - _ENABLEDEPTHEDGE_ON
+  - _ENABLEGAUSSBLUR_ON
+  - _ENABLENORMALEDGE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: -3260640993307099278, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: -8333767756695452246, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.07
+    - _BumpScale: 1
+    - _DepthFar: 50
+    - _DepthNear: 5
+    - _DetailBias: 0.5
+    - _DetailMode: 0
+    - _EnableAlphaTest: 0
+    - _EnableColorEdge: 0
+    - _EnableDepthEdge: 1
+    - _EnableGaussBlur: 1
+    - _EnableNormalEdge: 1
+    - _HAdaptiveStrength: 0.5
+    - _HBlurRadius: 0.5
+    - _HCardinalWeight: 0.125
+    - _HCenterWeight: 0.25
+    - _HColorThreshold: 0.1
+    - _HColorWeight: 0
+    - _HDepthThreshold: 0.05
+    - _HDepthWeight: 1
+    - _HDiagonalWeight: 0.0625
+    - _HEdgeStrength: 1
+    - _HEdgeWidth: 1
+    - _HEnableSkinDiscard: 0
+    - _HNormalThreshold: 0.3
+    - _HNormalWeight: 1
+    - _HSkinHueMax: 0.12
+    - _HSkinHueMin: 0.02
+    - _HSkinSatMin: 0.15
+    - _LightSensitivity: 0.8
+    - _ManualDetail: 0.5
+    - _OuterOutlineWidth: 0.002
+    - _RampSmoothing: 0.05
+    - _RimPower: 3
+    - _ShadowStrength: 0.5
+    - _TextureIntensity: 1
+    m_Colors:
+    - _AmbientColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _HEdgeColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.408, g: 0.408, b: 0.408, a: 1}
+    - _ShadowColor: {r: 0.29999998, g: 0.29999998, b: 0.45, a: 1}
+  m_BuildTextureStacks: []

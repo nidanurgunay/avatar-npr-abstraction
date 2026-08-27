@@ -1,0 +1,737 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738c2129e42f6403cbe660045abb8614, type: 3}
+  m_Name: JadePresets
+  m_EditorClassIdentifier: 
+  shaders:
+  - shaderName: Custom/V1_ToonShading_GeometryOutline
+    slots:
+    - slotName: Head
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - slotName: Body
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - slotName: Hair
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - slotName: Eyelash
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - slotName: Look
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - slotName: Shoe
+      floats:
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _TextureIntensity
+        value: 1
+      - name: _ToonSteps
+        value: 4
+      - name: _ToonSmoothness
+        value: 0.05
+      - name: _ShadowStrength
+        value: 0.5
+      - name: _OuterOutlineWidth
+        value: 0.005
+      - name: _UseOutlineDepthOffset
+        value: 1
+      - name: _OutlineDepthBias
+        value: 4
+      - name: _RimPower
+        value: 4
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799993, g: 0.40799993, b: 0.40799993, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+  - shaderName: NPR/XToon_2DRamp_Jade
+    slots:
+    - slotName: Head
+      floats:
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _LightSensitivity
+        value: 0.5
+      - name: _DetailMode
+        value: 0
+      - name: _DetailBias
+        value: 0
+      - name: _DepthNear
+        value: 5
+      - name: _DepthFar
+        value: 50
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _ShadowStrength
+        value: 0.4
+      - name: _LightingStrength
+        value: 0.4
+      - name: _SpecularSize
+        value: 0.005
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _EnableRimLight
+        value: 0
+      - name: _RimPower
+        value: 10
+      - name: _RimThreshold
+        value: 0
+      - name: _RimStrength
+        value: 1
+      - name: _EnableSobel
+        value: 0
+      - name: _SobelThreshold
+        value: 0.15
+      - name: _SobelSampleDist
+        value: 1
+      - name: _SobelStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _AlphaBlend
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.1
+      - name: _DebugMode
+        value: 0
+      colors:
+      - name: _BaseColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999994, g: 0.24999994, b: 0.34999993, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+      - name: _SobelEdgeColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Body
+      floats:
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _LightSensitivity
+        value: 0.5
+      - name: _DetailMode
+        value: 0
+      - name: _DetailBias
+        value: 0
+      - name: _DepthNear
+        value: 5
+      - name: _DepthFar
+        value: 50
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _ShadowStrength
+        value: 0.4
+      - name: _LightingStrength
+        value: 0.4
+      - name: _SpecularSize
+        value: 0.1
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _EnableRimLight
+        value: 0
+      - name: _RimPower
+        value: 10
+      - name: _RimThreshold
+        value: 0
+      - name: _RimStrength
+        value: 1
+      - name: _EnableSobel
+        value: 0
+      - name: _SobelThreshold
+        value: 0.15
+      - name: _SobelSampleDist
+        value: 1
+      - name: _SobelStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _AlphaBlend
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.1
+      - name: _DebugMode
+        value: 0
+      colors:
+      - name: _BaseColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999994, g: 0.24999994, b: 0.34999993, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+      - name: _SobelEdgeColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Hair
+      floats:
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _LightSensitivity
+        value: 0.5
+      - name: _DetailMode
+        value: 0
+      - name: _DetailBias
+        value: 0
+      - name: _DepthNear
+        value: 5
+      - name: _DepthFar
+        value: 50
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _ShadowStrength
+        value: 0.4
+      - name: _LightingStrength
+        value: 0.4
+      - name: _SpecularSize
+        value: 0.005
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _EnableRimLight
+        value: 0
+      - name: _RimPower
+        value: 10
+      - name: _RimThreshold
+        value: 0
+      - name: _RimStrength
+        value: 1
+      - name: _EnableSobel
+        value: 0
+      - name: _SobelThreshold
+        value: 0.15
+      - name: _SobelSampleDist
+        value: 1
+      - name: _SobelStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _AlphaBlend
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      - name: _DebugMode
+        value: 0
+      colors:
+      - name: _BaseColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999994, g: 0.24999994, b: 0.34999993, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+      - name: _SobelEdgeColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Eyelash
+      floats:
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _LightSensitivity
+        value: 0.5
+      - name: _DetailMode
+        value: 0
+      - name: _DetailBias
+        value: 0
+      - name: _DepthNear
+        value: 5
+      - name: _DepthFar
+        value: 50
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _ShadowStrength
+        value: 0.4
+      - name: _LightingStrength
+        value: 0.4
+      - name: _SpecularSize
+        value: 0.005
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _EnableRimLight
+        value: 0
+      - name: _RimPower
+        value: 10
+      - name: _RimThreshold
+        value: 0
+      - name: _RimStrength
+        value: 1
+      - name: _EnableSobel
+        value: 0
+      - name: _SobelThreshold
+        value: 0.15
+      - name: _SobelSampleDist
+        value: 1
+      - name: _SobelStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _AlphaBlend
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      - name: _DebugMode
+        value: 0
+      colors:
+      - name: _BaseColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999994, g: 0.24999994, b: 0.34999993, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+      - name: _SobelEdgeColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Look
+      floats:
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _LightSensitivity
+        value: 0.5
+      - name: _DetailMode
+        value: 0
+      - name: _DetailBias
+        value: 0
+      - name: _DepthNear
+        value: 5
+      - name: _DepthFar
+        value: 50
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _ShadowStrength
+        value: 0.4
+      - name: _LightingStrength
+        value: 0.4
+      - name: _SpecularSize
+        value: 0.005
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _EnableRimLight
+        value: 0
+      - name: _RimPower
+        value: 10
+      - name: _RimThreshold
+        value: 0
+      - name: _RimStrength
+        value: 1
+      - name: _EnableSobel
+        value: 0
+      - name: _SobelThreshold
+        value: 0.15
+      - name: _SobelSampleDist
+        value: 1
+      - name: _SobelStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _AlphaBlend
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.1
+      - name: _DebugMode
+        value: 0
+      colors:
+      - name: _BaseColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999994, g: 0.24999994, b: 0.34999993, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+      - name: _SobelEdgeColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Shoe
+      floats:
+      - name: _AlphaBlend
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      - name: _DebugMode
+        value: 0
+      - name: _DepthFar
+        value: 50
+      - name: _DepthNear
+        value: 5
+      - name: _DetailBias
+        value: 0.494
+      - name: _DetailMode
+        value: 0
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _LightSensitivity
+        value: 0.389
+      - name: _LightingStrength
+        value: 0.121
+      - name: _ManualDetail
+        value: 0
+      - name: _NormalSmoothing
+        value: 1
+      - name: _OutlineWidth
+        value: 0.003
+      - name: _RampSmoothing
+        value: 0.0017
+      - name: _RimPower
+        value: 2.37
+      - name: _ShadowStrength
+        value: 0.261
+      - name: _SpecularSize
+        value: 0.1
+      - name: _SpecularSmoothness
+        value: 0.05
+      - name: _SpecularStrength
+        value: 0.5
+      - name: _ToonSmoothness
+        value: 0.03
+      - name: _ToonSteps
+        value: 4
+      - name: _UseAbstractNormals
+        value: 0.9
+      - name: _UseDebugDefaults
+        value: 0
+      - name: _UseOutlineDepthOffset
+        value: 1
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OuterOutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+      - name: _ShadowColor
+        value: {r: 0.24999997, g: 0.24999997, b: 0.34999996, a: 1}
+      - name: _SpecularColor
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _RimColor
+        value: {r: 0.408, g: 0.408, b: 0.408, a: 1}
+      - name: _AmbientColor
+        value: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+  - shaderName: Custom/V1_InvertedHullOutline
+    slots:
+    - slotName: Head
+      floats:
+      - name: _OutlineWidth
+        value: 0.003
+      - name: _BumpScale
+        value: 1
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Body
+      floats:
+      - name: _BumpScale
+        value: 1
+      - name: _Metallic
+        value: 0
+      - name: _Smoothness
+        value: 0.5
+      - name: _OcclusionStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Hair
+      floats:
+      - name: _BumpScale
+        value: 1
+      - name: _Metallic
+        value: 0
+      - name: _Smoothness
+        value: 0.5
+      - name: _OcclusionStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _EnableAlphaTest
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Eyelash
+      floats:
+      - name: _BumpScale
+        value: 1
+      - name: _Metallic
+        value: 0
+      - name: _Smoothness
+        value: 0.5
+      - name: _OcclusionStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _EnableAlphaTest
+        value: 1
+      - name: _AlphaCutoff
+        value: 0.1
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Look
+      floats:
+      - name: _BumpScale
+        value: 1
+      - name: _Metallic
+        value: 0
+      - name: _Smoothness
+        value: 0.5
+      - name: _OcclusionStrength
+        value: 1
+      - name: _OutlineWidth
+        value: 0.005
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}
+    - slotName: Shoe
+      floats:
+      - name: _OutlineWidth
+        value: 0.003
+      - name: _BumpScale
+        value: 1
+      - name: _Metallic
+        value: 0
+      - name: _Smoothness
+        value: 0.5
+      - name: _OcclusionStrength
+        value: 1
+      - name: _EnableAlphaTest
+        value: 0
+      - name: _AlphaCutoff
+        value: 0.07
+      colors:
+      - name: _Color
+        value: {r: 1, g: 1, b: 1, a: 1}
+      - name: _OutlineColor
+        value: {r: 0, g: 0, b: 0, a: 1}

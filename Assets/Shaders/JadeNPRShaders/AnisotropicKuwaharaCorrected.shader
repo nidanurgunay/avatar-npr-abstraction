@@ -1,0 +1,283 @@
+// =============================================================================
+// Anisotropic Kuwahara Filter (Orientation-Corrected) - Unity URP Post-Processing Shader
+// =============================================================================
+// Based on Kyprianidis et al. "Image and Video Abstraction by Anisotropic
+// Kuwahara Filtering" (Pacific Graphics 2009)
+//
+// Identical to AnisotropicKuwahara.shader except for the ellipse orientation
+// angle. The raw eigenvector angle atan2(2F, E-G)/2 points along the local
+// gradient direction (perpendicular to a feature/edge). The paper's ellipse
+// major axis needs to be aligned ALONG the feature instead, which requires
+// rotating that raw angle by an additional +90 degrees (matches the Meta
+// Avatars SDK implementation in NPREffect_Kuwahara2.cginc, which already
+// includes this correction). AnisotropicKuwahara.shader is missing this
+// correction, so its major axis is stretched across features rather than
+// along them.
+//
+// Compatible with Blitter.BlitCameraTexture (URP 14+)
+// Uses Blit.hlsl: vertex shader + _BlitTexture are provided by URP.
+//
+// Usage: Assign to KuwaharaFilterFeature.kuwaharaShader in the Renderer Feature.
+// =============================================================================
+
+Shader "NPR/AnisotropicKuwaharaCorrected"
+{
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
+        ZWrite Off Cull Off ZTest Always
+
+        // =====================================================================
+        // PASS 0: Structure Tensor
+        // Sobel on luminance → packs (gx², gx·gy, gy²) into RGB
+        // =====================================================================
+        Pass
+        {
+            Name "StructureTensor"
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment FragStructureTensor
+            #pragma target 3.0
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            float4 _BlitTexture_TexelSize;
+
+            float Luminance3(float3 c)
+            {
+                return dot(c, float3(0.2126, 0.7152, 0.0722));
+            }
+
+            float4 FragStructureTensor(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float2 uv = input.texcoord;
+                float2 d  = _BlitTexture_TexelSize.xy;
+                float tl = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2(-d.x,  d.y)), 0).rgb);
+                float  l = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2(-d.x,  0.0)), 0).rgb);
+                float bl = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2(-d.x, -d.y)), 0).rgb);
+                float  t = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2( 0.0,  d.y)), 0).rgb);
+                float  b = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2( 0.0, -d.y)), 0).rgb);
+                float tr = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2( d.x,  d.y)), 0).rgb);
+                float  r = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2( d.x,  0.0)), 0).rgb);
+                float br = Luminance3(SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, saturate(uv + float2( d.x, -d.y)), 0).rgb);
+
+                float gx = -tl - 2.0*l - bl + tr + 2.0*r + br;
+                float gy = -tl - 2.0*t - tr + bl + 2.0*b + br;
+
+                return float4(gx*gx, gx*gy, gy*gy, 1.0);
+            }
+            ENDHLSL
+        }
+
+        // =====================================================================
+        // PASS 1: Gaussian Blur on Structure Tensor (separable, 5-tap)
+        // =====================================================================
+        Pass
+        {
+            Name "TensorBlur"
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment FragTensorBlur
+            #pragma target 3.0
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            float4 _BlitTexture_TexelSize;
+            float4 _BlurDirection;
+
+            float4 FragTensorBlur(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float2 uv     = input.texcoord;
+                float2 offset = _BlurDirection.xy * _BlitTexture_TexelSize.xy;
+
+                float4 result  = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv - 2.0*offset, 0) * 0.0625;
+                       result += SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv -     offset, 0)  * 0.25;
+                       result += SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv             , 0)  * 0.375;
+                       result += SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv +     offset, 0)  * 0.25;
+                       result += SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv + 2.0*offset, 0)  * 0.0625;
+                return result;
+            }
+            ENDHLSL
+        }
+
+        // =====================================================================
+        // PASS 2: Anisotropic Kuwahara Filter
+        // =====================================================================
+        Pass
+        {
+            Name "KuwaharaFilter"
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment FragKuwahara
+            #pragma target 3.0
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            float4 _BlitTexture_TexelSize;
+            TEXTURE2D_X(_StructureTensor);
+            SAMPLER(sampler_StructureTensor);
+
+            // Mobile/standalone VR GPUs can hit watchdog timeouts with large kernels.
+            // Cap the compile-time loop bounds more aggressively on mobile platforms.
+            #if defined(SHADER_API_MOBILE)
+                #define MAX_RADIUS 6
+            #else
+                #define MAX_RADIUS 32
+            #endif
+
+            int   _KernelSize;
+            int   _SectorCount;
+            float _Sharpness;
+            float _Hardness;
+            float _ZeroCrossing;
+
+            float4 FragKuwahara(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float2 uv = input.texcoord;
+                float2 d  = _BlitTexture_TexelSize.xy;
+
+                // --- Read smoothed structure tensor ---
+                float3 tensor = SAMPLE_TEXTURE2D_X_LOD(_StructureTensor, sampler_StructureTensor, uv, 0).rgb;
+                float E = tensor.r;
+                float F = tensor.g;
+                float G = tensor.b;
+
+                // --- Eigenvalue decomposition (paper eq. 1) ---
+                float disc    = sqrt(max((E-G)*(E-G) + 4.0*F*F, 0.0));
+                float lambda1 = 0.5*(E+G+disc);
+                float lambda2 = 0.5*(E+G-disc);
+
+                // Local orientation angle phi. The raw eigenvector angle points along
+                // the gradient; +HALF_PI rotates it to the feature direction, matching
+                // the Meta Avatars SDK convention (NPREffect_Kuwahara2.cginc).
+                static const float HALF_PI = 1.5707963;
+                float angle = 0.5 * atan2(2.0*F, E-G) + HALF_PI;
+
+                // Anisotropy A = (λ1-λ2)/(λ1+λ2)
+                float anisotropy = (lambda1+lambda2 > 0.0)
+                    ? (lambda1-lambda2)/(lambda1+lambda2) : 0.0;
+
+                // --- Ellipse axes scaled by anisotropy ---
+                int radius = min(_KernelSize, MAX_RADIUS);
+                float a = float(radius) * clamp((1.0+anisotropy)*0.5, 0.5, 2.0);
+                float b = float(radius) * clamp((1.0-anisotropy)*0.5, 0.25, 1.0);
+
+                float cosA = cos(angle);
+                float sinA = sin(angle);
+
+                int N = _SectorCount;
+                float sectorAngle = 6.28318530718 / float(N);
+
+                // Per-sector accumulators (fixed 8)
+                float4 sectorMean    [8];
+                float  sectorWeight  [8];
+                float  sectorVariance[8];
+
+                [unroll]
+                for (int s = 0; s < 8; s++)
+                {
+                    sectorMean[s]     = 0;
+                    sectorWeight[s]   = 0;
+                    sectorVariance[s] = 0;
+                }
+
+                // --- Accumulate samples into sectors ---
+                [loop]
+                for (int j = -MAX_RADIUS; j <= MAX_RADIUS; j++)
+                {
+                    [loop]
+                    for (int i = -MAX_RADIUS; i <= MAX_RADIUS; i++)
+                    {
+                        if (abs(i) > radius || abs(j) > radius) continue;
+
+                        float2 pos = float2(
+                             cosA*float(i) + sinA*float(j),
+                            -sinA*float(i) + cosA*float(j)
+                        );
+
+                        if ((pos.x*pos.x)/(a*a) + (pos.y*pos.y)/(b*b) > 1.0) continue;
+
+                        float sampleAngle = atan2(pos.y, pos.x) + 3.14159265359;
+                        int   sectorIdx   = clamp(int(sampleAngle / sectorAngle), 0, N-1);
+
+                        float dist = length(pos) / float(radius);
+                        float w    = exp(-2.0*dist*dist);
+
+                        float2 sampleUV = saturate(uv + float2(float(i), float(j)) * d);
+                        // Explicit LOD avoids undefined gradients on mobile when sampling inside loops.
+                        float4 col = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, sampleUV, 0);
+
+                        sectorMean    [sectorIdx] += col * w;
+                        sectorWeight  [sectorIdx] += w;
+                        sectorVariance[sectorIdx] += dot(col.rgb, col.rgb) * w;
+                    }
+                }
+
+                // --- Blend sectors weighted by inverse variance (paper eq. αi) ---
+                float4 result = 0;
+                float  totalW = 0;
+
+                [unroll]
+                for (int k = 0; k < 8; k++)
+                {
+                    if (k >= N) break;
+                    if (sectorWeight[k] < 0.001) continue;
+
+                    float4 mean      = sectorMean[k] / sectorWeight[k];
+                    float  meanSqLen = sectorVariance[k] / sectorWeight[k];
+                    float  variance  = max(meanSqLen - dot(mean.rgb, mean.rgb), 0.0);
+
+                    // αi = 1 / (1 + ||si||^q)  — paper eq.
+                    float w = 1.0 / (1.0 + pow(variance * 1000.0, 0.5*_Sharpness));
+
+                    result += mean * w;
+                    totalW += w;
+                }
+
+                return (totalW > 0.0)
+                    ? result / totalW
+                    : SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv, 0);
+            }
+            ENDHLSL
+        }
+        // =====================================================================
+        // PASS 3: Masked Composite
+        // Blends original scene with Kuwahara result using an avatar mask
+        // =====================================================================
+        Pass
+        {
+            Name "MaskedComposite"
+            ZWrite Off Cull Off ZTest Always
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment FragMaskedComposite
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            TEXTURE2D_X(_KuwaharaResult);
+            TEXTURE2D_X(_AvatarMask);
+
+            float4 FragMaskedComposite(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float2 uv      = input.texcoord;
+                float4 original = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture,     sampler_LinearClamp, uv, 0);
+                float4 kuwahara = SAMPLE_TEXTURE2D_X_LOD(_KuwaharaResult,  sampler_LinearClamp, uv, 0);
+                float  mask     = SAMPLE_TEXTURE2D_X_LOD(_AvatarMask,      sampler_LinearClamp, uv, 0).r;
+                return lerp(original, kuwahara, mask);
+            }
+            ENDHLSL
+        }
+    }
+}

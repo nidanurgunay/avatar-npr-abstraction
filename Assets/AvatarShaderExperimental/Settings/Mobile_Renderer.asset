@@ -1,0 +1,211 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8864561071118082113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46853fd63f44668a55e432a1113a2cd, type: 3}
+  m_Name: EdgeDetectionFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 500
+    edgeShader: {fileID: 4800000, guid: dedad21106be84ff3885b813f494582e, type: 3}
+    edgeColor: {r: 0, g: 0, b: 0, a: 1}
+    depthThreshold: 0.5
+    normalThreshold: 0.4
+    colorThreshold: 0.15
+    depthWeight: 1
+    normalWeight: 1
+    colorWeight: 0.5
+    edgeWidth: 1
+    adaptiveStrength: 0.5
+    avatarLayer:
+      serializedVersion: 2
+      m_Bits: 2304
+--- !u!114 &-4872534508834559619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46853fd63f44668a55e432a1113a2cd, type: 3}
+  m_Name: EdgeDetectionFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    edgeShader: {fileID: 4800000, guid: cbbd79783d4a74d49bc2c349a189e00c, type: 3}
+    edgeColor: {r: 0, g: 0, b: 0, a: 1}
+    depthThreshold: 3.23
+    normalThreshold: 1.79
+    colorThreshold: 0.165
+    depthWeight: 1
+    normalWeight: 1
+    colorWeight: 0.584
+    edgeWidth: 1
+    adaptiveStrength: 0.5
+    avatarLayer:
+      serializedVersion: 2
+      m_Bits: 8000
+--- !u!114 &-3054778112796006409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a37147cf30146778e0fd9258a1018a, type: 3}
+  m_Name: KuwaharaFilterFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    kuwaharaShader: {fileID: 4800000, guid: b2466d13b2c9f4b5c80fbef454266920, type: 3}
+    kernelSize: 16
+    sectorCount: 7
+    sharpness: 10.1
+    hardness: 8.6
+    zeroCrossing: 0.466
+    avatarLayer:
+      serializedVersion: 2
+      m_Bits: 7296
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
+  m_Name: Mobile_Renderer
+  m_EditorClassIdentifier: 
+  debugShaders:
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
+    hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
+    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959, type: 3}
+  probeVolumeResources:
+    probeVolumeDebugShader: {fileID: 0}
+    probeVolumeFragmentationDebugShader: {fileID: 0}
+    probeVolumeOffsetDebugShader: {fileID: 0}
+    probeVolumeSamplingDebugShader: {fileID: 0}
+    probeSamplingDebugMesh: {fileID: 0}
+    probeSamplingDebugTexture: {fileID: 0}
+    probeVolumeBlendStatesCS: {fileID: 0}
+  m_RendererFeatures:
+  - {fileID: 3379074860660714707}
+  - {fileID: -3054778112796006409}
+  - {fileID: -4872534508834559619}
+  m_RendererFeatureMap: d36c22c3aee2e42ef7e727c77d3f9bd57d691515ae4761bc
+  m_UseNativeRenderPass: 1
+  xrSystemData: {fileID: 0}
+  postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  m_AssetVersion: 2
+  m_OpaqueLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_TransparentLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_DefaultStencilState:
+    overrideStencilState: 0
+    stencilReference: 0
+    stencilCompareFunction: 8
+    passOperation: 2
+    failOperation: 0
+    zFailOperation: 0
+  m_ShadowTransparentReceive: 0
+  m_RenderingMode: 2
+  m_DepthPrimingMode: 0
+  m_CopyDepthMode: 0
+  m_DepthAttachmentFormat: 0
+  m_DepthTextureFormat: 0
+  m_AccurateGbufferNormals: 0
+  m_IntermediateTextureMode: 0
+--- !u!114 &1272869712501263938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46853fd63f44668a55e432a1113a2cd, type: 3}
+  m_Name: EdgeDetectionFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    edgeShader: {fileID: 4800000, guid: cbbd79783d4a74d49bc2c349a189e00c, type: 3}
+    edgeColor: {r: 0, g: 0, b: 0, a: 1}
+    depthThreshold: 0.5
+    normalThreshold: 0.4
+    colorThreshold: 0.15
+    depthWeight: 1
+    normalWeight: 1
+    colorWeight: 0.5
+    edgeWidth: 1
+    adaptiveStrength: 0.5
+    avatarLayer:
+      serializedVersion: 2
+      m_Bits: 4608
+--- !u!114 &1974571462798836380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46853fd63f44668a55e432a1113a2cd, type: 3}
+  m_Name: EdgeDetectionFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 500
+    edgeShader: {fileID: 4800000, guid: cbbd79783d4a74d49bc2c349a189e00c, type: 3}
+    edgeColor: {r: 0, g: 0, b: 0, a: 1}
+    depthThreshold: 0.5
+    normalThreshold: 0.4
+    colorThreshold: 0.15
+    depthWeight: 1
+    normalWeight: 1
+    colorWeight: 1
+    edgeWidth: 1
+    adaptiveStrength: 0.5
+    avatarLayer:
+      serializedVersion: 2
+      m_Bits: 1088
+--- !u!114 &3379074860660714707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7678710a057294b82b798f4d8e5aaeb9, type: 3}
+  m_Name: ToonOutlineRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings:
+    renderPassEvent: 300
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    outlinePassName: ToonOutline

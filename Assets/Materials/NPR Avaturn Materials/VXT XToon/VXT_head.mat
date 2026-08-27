@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: VXT_head
+  m_Shader: {fileID: 4800000, guid: 088c73ef0d8f3442d83eb49d1b22a69f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DEBUGMODE_OFF
+  - _DETAILMODE_MANUAL
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AbstractNormalMap:
+        m_Texture: {fileID: -2447118904992951434, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: -1732159216777743971, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonRamp:
+        m_Texture: {fileID: 2800000, guid: 0115dac2e9f414d18b5ef82ea5bb4d4e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaBlend: 0
+    - _AlphaCutoff: 0.1
+    - _DebugMode: 0
+    - _DepthFar: 50
+    - _DepthNear: 5
+    - _DetailBias: 0
+    - _DetailMode: 2
+    - _DstBlend: 0
+    - _EnableRimLight: 0
+    - _EnableSobel: 0
+    - _LightSensitivity: 0.5
+    - _LightingStrength: 0.4
+    - _ManualDetail: 0
+    - _NormalSmoothing: 1
+    - _OutlineWidth: 0.005
+    - _RampSmoothing: 0.01
+    - _RimPower: 3
+    - _RimStrength: 0.3
+    - _RimThreshold: 0.1
+    - _ShadowStrength: 0.4
+    - _SobelSampleDist: 1
+    - _SobelStrength: 1
+    - _SobelThreshold: 0.15
+    - _SpecularSize: 0.005
+    - _SpecularSmoothness: 0.05
+    - _SpecularStrength: 0.5
+    - _SrcBlend: 1
+    - _UseAbstractNormals: 0.9
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.25, g: 0.25, b: 0.35, a: 1}
+    - _SobelEdgeColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

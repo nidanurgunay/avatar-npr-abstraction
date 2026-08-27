@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: V6_touunge
+  m_Shader: {fileID: 4800000, guid: eba7ab5ca926e49198adb545aa4d48ef, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DETAILMODE_DEPTH
+  - _EDGEBLENDMODE_MAX
+  m_InvalidKeywords:
+  - _BROWSUPPRESSMOUTH_ON
+  - _DEBUGVIEW_FINAL
+  - _ENABLEBROWEDGE_ON
+  - _ENABLEGAUSSIANBLUR_ON
+  - _ENABLELIPEDGE_ON
+  - _ENABLEOUTEROUTLINE_ON
+  - _ENABLEPASS1_ON
+  - _ENABLEPASS2_ON
+  - _ENABLEPASS3_ON
+  - _ENABLEPASS4_ON
+  - _ENABLEPOWERCURVE_ON
+  - _ENABLERIM_ON
+  - _ENABLESKINBOUNDARY_ON
+  - _ENABLETHRESHOLD_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: -2447118904992951434, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: -7172237601165729670, guid: 3a1632c8b01834f2581b28fbfa9753e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonRamp:
+        m_Texture: {fileID: 2800000, guid: 0115dac2e9f414d18b5ef82ea5bb4d4e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.07
+    - _BlurRadiusMultiplier: 1
+    - _BrowColorTolerance: 0.12
+    - _BrowEdgePower: 1.5
+    - _BrowEdgeSampleDist: 1
+    - _BrowEdgeSmoothWidth: 0.3
+    - _BrowEdgeStrength: 1
+    - _BrowEdgeThreshold: 0.15
+    - _BrowMouthSuppressRadius: 15
+    - _BrowMouthSuppressStrength: 1
+    - _BrowSuppressMouth: 1
+    - _BumpScale: 1
+    - _DebugView: 0
+    - _DepthFar: 50
+    - _DepthNear: 5
+    - _DetailBias: 0
+    - _DetailMode: 0
+    - _EdgeBlendMode: 0
+    - _EnableAlphaTest: 0
+    - _EnableBrowEdge: 1
+    - _EnableGaussianBlur: 1
+    - _EnableLipEdge: 1
+    - _EnableNormalEdges: 0
+    - _EnableOuterOutline: 1
+    - _EnablePass1: 1
+    - _EnablePass2: 1
+    - _EnablePass3: 1
+    - _EnablePass4: 1
+    - _EnablePowerCurve: 1
+    - _EnableRim: 1
+    - _EnableSkinBoundary: 1
+    - _EnableTextureSobel: 0
+    - _EnableThreshold: 1
+    - _EnableWideLipSobel: 0
+    - _GaussianCardinalWeight: 0.125
+    - _GaussianCenterWeight: 0.25
+    - _GaussianDiagonalWeight: 0.0625
+    - _InnerLineBlur: 0.5
+    - _InnerLineStrength: 1
+    - _InnerLineThreshold: 0.2
+    - _LightSensitivity: 0.8
+    - _LipColorTolerance: 0.081
+    - _LipEdgePower: 1.44
+    - _LipEdgeSampleDist: 0.21
+    - _LipEdgeSmoothWidth: 0.266
+    - _LipEdgeStrength: 1
+    - _LipEdgeThreshold: 0.18
+    - _LipFarOffsetScale: 2
+    - _LipWideCornerWeight: 0.5
+    - _ManualDetail: 0.5
+    - _NormalEdgeSmoothness: 0.1
+    - _NormalEdgeStrength: 0.5
+    - _NormalEdgeThreshold: 0.5
+    - _OuterOutlineWidth: 0.005
+    - _OutlineDepthBias: 1
+    - _PowerCurve: 1.5
+    - _RampSmoothing: 0.05
+    - _RimPower: 4
+    - _ShadowStrength: 0.5
+    - _SkinColorTolerance: 0.503
+    - _SmoothstepTightness: 0.2
+    - _TextureIntensity: 1
+    - _ThresholdMaxMultiplier: 2
+    - _ThresholdMinMultiplier: 0.2
+    - _UseAggressiveFiltering: 0
+    - _UseDebugDefaults: 0
+    - _UseLightFiltering: 0
+    - _UseModerateFiltering: 0
+    - _UseOutlineDepthOffset: 0
+    m_Colors:
+    - _AmbientColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+    - _BrowEdgeColor: {r: 0.04, g: 0.03, b: 0.02, a: 1}
+    - _BrowTargetColor: {r: 0.12, g: 0.08, b: 0.06, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
+    - _InnerLineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LipEdgeColor: {r: 0.08, g: 0.02, b: 0.02, a: 1}
+    - _LipTargetColor: {r: 0.44313726, g: 0.2, b: 0.15294118, a: 1}
+    - _OuterOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.408, g: 0.408, b: 0.408, a: 1}
+    - _ShadowColor: {r: 0.3, g: 0.3, b: 0.45, a: 1}
+    - _SkinTargetColor: {r: 0.48235294, g: 0.3254902, b: 0.23137255, a: 1}
+  m_BuildTextureStacks: []

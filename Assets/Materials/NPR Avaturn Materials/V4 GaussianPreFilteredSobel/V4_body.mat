@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: V4_body
+  m_Shader: {fileID: 4800000, guid: 0f2cfdef4bd124a9aa13d186a415d964, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DETAILMODE_DEPTH
+  - _EDGEBLENDMODE_MAX
+  - _USEOUTLINEDEPTHOFFSET_ON
+  m_InvalidKeywords:
+  - _DEBUGVIEW_FINAL
+  - _ENABLEALPHATEST_ON
+  - _ENABLEOUTEROUTLINE_ON
+  - _ENABLERIM_ON
+  - _ENABLETEXTURESOBEL_ON
+  - _ENABLETHRESHOLD_ON
+  - _ENABLETOONSHADING_ON
+  - _USEAGGRESSIVEFILTERING_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: -3260640993307099278, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: -8333767756695452246, guid: 15c5fb6e7e2814c17bb255ca3db0141e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonRamp:
+        m_Texture: {fileID: 2800000, guid: 0115dac2e9f414d18b5ef82ea5bb4d4e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaCutoff: 0.1
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlurRadiusMultiplier: 10
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DebugView: 0
+    - _DepthFar: 50
+    - _DepthNear: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailBias: 0.5
+    - _DetailMode: 0
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EdgeBlendMode: 0
+    - _EnableAlphaTest: 1
+    - _EnableFresnelEdge: 0
+    - _EnableGaussianBlur: 0
+    - _EnableNormalEdges: 0
+    - _EnableOuterOutline: 1
+    - _EnablePass1: 0
+    - _EnablePass2: 0
+    - _EnablePass3: 0
+    - _EnablePass4: 0
+    - _EnablePowerCurve: 0
+    - _EnableRim: 1
+    - _EnableTextureSobel: 1
+    - _EnableThreshold: 1
+    - _EnableToonShading: 1
+    - _EnvironmentReflections: 1
+    - _FresnelEdgeStrength: 0
+    - _FresnelEdgeThreshold: 0.3
+    - _GaussianCardinalWeight: 0.309
+    - _GaussianCenterWeight: 0.46
+    - _GaussianDiagonalWeight: 0.25
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _InnerLineBlur: 0.2
+    - _InnerLineStrength: 1
+    - _InnerLineThreshold: 0.05
+    - _LightSensitivity: 0.5
+    - _ManualDetail: 0.013
+    - _Metallic: 0
+    - _NormalEdgeSmoothness: 0.01
+    - _NormalEdgeStrength: 0
+    - _NormalEdgeThreshold: 0
+    - _OcclusionStrength: 1
+    - _OuterOutlineWidth: 0.003
+    - _OutlineDepthBias: 15
+    - _Parallax: 0.005
+    - _PowerCurve: 0.5
+    - _QueueOffset: 0
+    - _RampSmoothing: 0.05
+    - _ReceiveShadows: 1
+    - _RimPower: 4
+    - _ShadowStrength: 0
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SmoothstepTightness: 0.281
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _TextureIntensity: 1
+    - _ThresholdMaxMultiplier: 2.6
+    - _ThresholdMinMultiplier: 0
+    - _ToonSmoothness: 0.01
+    - _ToonSteps: 3
+    - _ToonThreshold: 0.5
+    - _UseAggressiveFiltering: 1
+    - _UseDebugDefaults: 0
+    - _UseLightFiltering: 0
+    - _UseModerateFiltering: 0
+    - _UseOutlineDepthOffset: 1
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _AmbientColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _InnerLineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OuterOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.40799996, g: 0.40799996, b: 0.40799996, a: 1}
+    - _ShadowColor: {r: 0.29999998, g: 0.29999998, b: 0.45, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &4947961005878892486
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
