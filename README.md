@@ -85,14 +85,31 @@ not redistributed here, so the room geometry loads with placeholder materials. S
 
 ---
 
+## How the NPR shader reaches a Meta avatar
+
+Avatars in the Meta Avatars SDK are constructed at runtime, so their materials cannot be assigned in the
+Editor. The SDK instead builds them from a shader configuration asset. This project supplies its own:
+
+[`MetaNPRShaderConfiguration.asset`](Assets/Shaders/MetaAvatarShaders/MetaNPRShaderConfiguration.asset) points
+the SDK at `Avatar-Meta-UGB.shader` and maps the SDK's texture and colour parameter names onto it. The
+`metavatars` scene overrides both `DefaultShaderConfigurationInitializer` and
+`CelShaderConfigurationInitializer` on the SDK manager to use it, which means every avatar is created with the
+NPR shader already attached. No material swap after loading is required.
+
 ## Runtime tooling
 
 | Script | Function |
 | --- | --- |
-| [`ShaderSwapper`](Assets/Scripts/ShaderSwapper.cs) | Replaces SDK materials with the NPR shader after the avatar loads asynchronously, and re-applies them when LOD switching reverts them |
-| [`NPREdgeDetectionUI`](Assets/Scripts/NPREdgeDetectionUI.cs) | World-space parameter panel with controller raycasting, for live technique switching inside VR |
+| [`NPREdgeDetectionUI`](Assets/Scripts/NPREdgeDetectionUI.cs) | The in-VR modification interface. A world-space panel driven by controller raycasting that collects every material using the NPR shader, switches technique by toggling the shader keywords, and pushes parameter changes to those materials live. Tuned values persist through `PlayerPrefs`. |
 | [`AvatarFreezeController`](Assets/Scripts/AvatarFreezeController.cs) | Freezes the avatar pose so comparison renders capture an identical configuration |
+| [`AvatarSwitcher`](Assets/Scripts/AvatarSwitcher.cs) | Cycles between loaded avatars in the comparison scene |
+| [`AvatarLabel`](Assets/Scripts/AvatarLabel.cs) | Floating billboard label identifying the active technique |
+| [`CameraCoordinateOverlay`](Assets/Scripts/CameraCoordinateOverlay.cs) | Displays camera position and framing, used to match viewpoints across platforms |
 | [`ScreenshotController`](Assets/Scripts/ScreenshotController.cs) | Captures the comparison figures used in the thesis |
+
+`ShaderSwapper.cs` is an earlier approach that assigned materials after avatar load. It was superseded by the
+shader configuration asset and is not attached to any scene. It is kept only as a record of the development
+history.
 
 ---
 
