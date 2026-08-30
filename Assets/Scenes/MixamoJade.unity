@@ -789,7 +789,6 @@ GameObject:
   - component: {fileID: 220672972}
   - component: {fileID: 220672971}
   - component: {fileID: 220672970}
-  - component: {fileID: 220672974}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -884,18 +883,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 496299710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &220672974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220672969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &285314009
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 801066986}
   - component: {fileID: 801066985}
-  - component: {fileID: 801066984}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2023,18 +2009,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &801066984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801066983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab68ce6587aab0146b8dabefbd806791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &801066985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2921,9 +2895,6 @@ PrefabInstance:
       addedObject: {fileID: 979089595}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 706147903bc23466d92151ffc79d7310, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 979089597}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 706147903bc23466d92151ffc79d7310, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 979089596}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 706147903bc23466d92151ffc79d7310, type: 3}
       insertIndex: -1
@@ -2978,18 +2949,6 @@ MonoBehaviour:
   animationTriggers:
   - Arm
   randomAnimation: 1
---- !u!114 &979089597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950288936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &979089598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3061,7 +3020,6 @@ GameObject:
   - component: {fileID: 1255177111}
   - component: {fileID: 1255177110}
   - component: {fileID: 1255177109}
-  - component: {fileID: 1255177108}
   m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
@@ -3089,18 +3047,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2.195}
   m_SizeDelta: {x: 500, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1255177108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255177106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1255177109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3484,7 +3430,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1613162801}
-  - component: {fileID: 1613162800}
   m_Layer: 0
   m_Name: XR Input Manager
   m_TagString: Untagged
@@ -3492,18 +3437,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1613162800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613162799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017c5e3933235514c9520e1dace2a4b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1613162801
 Transform:
   m_ObjectHideFlags: 0
@@ -3836,7 +3769,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025797316}
-  - component: {fileID: 2025797315}
   m_Layer: 0
   m_Name: XR Interaction Manager
   m_TagString: Untagged
@@ -3844,18 +3776,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2025797315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025797314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2025797316
 Transform:
   m_ObjectHideFlags: 0

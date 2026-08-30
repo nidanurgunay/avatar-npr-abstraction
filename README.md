@@ -94,10 +94,14 @@ is kept for the reason given above.
 | [`Assets/AvatarShaderExperimental/Scenes/Project Scene.unity`](Assets/AvatarShaderExperimental/Scenes/Project%20Scene.unity) | Main Mixamo development scene |
 | [`Assets/AvatarShaderExperimental/Scenes/Kuwahara and hieararchical.unity`](Assets/AvatarShaderExperimental/Scenes/Kuwahara%20and%20hieararchical.unity) | V5 and V6 painterly filter tests |
 
+The two development scenes under `AvatarShaderExperimental/` keep several stylisation variants side by side,
+since comparing them is what those scenes are for. The four scenes above them each hold one unmodified and one
+stylised avatar.
+
 The three platform scenes share a common studio environment so that comparison renders use an equivalent
 viewpoint, as described in Chapter 5.
 
-The Mixamo and Avaturn scenes each hold two avatars under a single `Avatars` group: `Avatar (Original)` with
+The Mixamo, Avaturn, Avaturn NPR and recording scenes each hold two avatars under a single `Avatars` group: `Avatar (Original)` with
 its unmodified materials, and `Avatar (NPR)` carrying the composite evaluated as condition C3, which combines
 the silhouette outline, X-Toon shading and Sobel edge detection. Every other stylisation is reproduced by
 assigning the matching material set to the avatar, so the scenes ship with one example of each rather than one
