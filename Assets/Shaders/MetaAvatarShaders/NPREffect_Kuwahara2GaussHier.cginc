@@ -17,7 +17,7 @@ float _K2HKuwRadius;    // Ellipse radius, UV-space  (0.5–8,    ×0.001)
 float _K2HKuwStrength;  // Kuwahara blend             (0–1)
 float _K2HKuwAlpha;     // Eccentricity α             (0.5–3)
 float _K2HKuwQ;         // Weight sharpness q         (1–16)
-float _K2HKuwTau;       // Variance floor τ           (0.001–0.1)
+float _K2HKuwTau;       // Std-deviation floor τ      (0.001–0.1)
 
 // ── Phase 2: Hierarchical parameters ─────────────────────────────────────────
 float  _K2HDepthThreshold;    // Depth gradient threshold   (0.001–0.2)

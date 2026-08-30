@@ -14,11 +14,19 @@
 //      Every sample contributes to all sectors simultaneously with angular
 //      falloff, giving reliable variance estimates per sector.
 //
-//   2. Correct inverse-std-dev output weighting.
-//      V1: w = 1/(1 + pow(variance * 1000.0, 0.5*q))  — ad hoc scale.
-//      V2: w = 1/pow(max(tau, sqrt(variance)), q)       — Kyprianidis eq. 6.
-//      Using sigma (std dev) instead of variance sharpens the winner-takes-all
-//      ratio from ~10x to ~1000x.
+//   2. Sector output weighting — two published Kyprianidis variants.
+//      V1: w = 1/(1 + pow(variance * 1000.0, 0.5*q))
+//          Kyprianidis et al. 2009 (Pacific Graphics), alpha_i = 1/(1 + ||s_i||^q).
+//          The 1+ term avoids the indetermination when a sector's std dev is zero.
+//          The 1000x scale compensates for normalised 0-1 input: the paper's
+//          weights assume integer values in the range 0-255.
+//          Exponent is halved because variance is passed in: (sigma^2)^(q/2) = sigma^q.
+//      V2: w = 1/pow(max(tau, sqrt(variance)), q)
+//          Kyprianidis 2011 (multi-scale), omega_i = (max(tau_w, ||s_i||))^-q.
+//      Both are valid published forms, not an incorrect and a correct one.
+//      V2 is the more selective in practice: using sigma rather than variance
+//      sharpens the winner-takes-all ratio from ~10x to ~1000x, which is why
+//      it is preferred here.
 //
 //   3. Correct ellipse axes (Kyprianidis §3.3.1).
 //      V1 at A=0: a = b = radius * 0.5.
@@ -190,7 +198,7 @@ Shader "NPR/AnisotropicKuwahara_Variant2"
                 int N = clamp(_SectorCount, 4, 8);
                 float q   = max(_Sharpness, 0.5);
                 float n   = max(_Hardness,  0.5);
-                float tau = 0.01; // variance floor (Kyprianidis §3.3.1)
+                float tau = 0.01; // std-deviation floor (Kyprianidis 2011)
 
                 float4 sectorMeanW    [8];  // weighted colour sum
                 float  sectorWeight   [8];  // total sector weight

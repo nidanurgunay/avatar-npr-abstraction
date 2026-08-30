@@ -210,7 +210,7 @@ Shader "NPR/AnisotropicKuwahara"
                     }
                 }
 
-                // --- Blend sectors weighted by inverse variance (paper eq. αi) ---
+                // --- Blend sectors by Kyprianidis 2009 eq. alpha_i = 1/(1 + ||s_i||^q) ---
                 float4 result = 0;
                 float  totalW = 0;
 

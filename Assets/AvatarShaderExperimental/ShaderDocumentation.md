@@ -446,7 +446,7 @@ At the end, each sector has a **mean colour** and a **variance**. The final pixe
 
 This is the mechanism that produces the oil-paint look: homogeneous colour regions become flat and saturated, edges between them stay sharp because sectors that would cross edges are downweighted.
 
-**Paper reference:** Equation αi — the inverse-variance weighting that is the paper's core contribution over earlier Kuwahara variants.
+**Paper reference:** Kyprianidis et al. 2009, equation alpha_i = 1/(1 + ||s_i||^q) — the inverse-standard-deviation weighting that is the paper's core contribution over earlier Kuwahara variants. The 1+ term avoids indetermination when a sector's standard deviation is zero.
 
 ---
 

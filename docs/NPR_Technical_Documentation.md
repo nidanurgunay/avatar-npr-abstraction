@@ -270,7 +270,7 @@ result = Σ(ω_i · m_i) / Σ(ω_i)
 | Strength | Blend with original lit colour |
 | Alpha | Eccentricity α — 1 = standard, >1 = more elongated brushstrokes |
 | Q Sharp | Sector weight sharpness — higher = harder region boundaries |
-| Tau Floor | Variance floor τ — prevents instability in uniform flat areas |
+| Tau Floor | Standard-deviation floor τ — prevents instability in uniform flat areas |
 
 **Characteristics:** Brushstrokes follow surface feature directions. Smooth areas with A≈0 behave like an enhanced isotropic Kuwahara. Strong gradients (A≈1) produce elongated strokes aligned with edges. 25 texture samples (1 centre + 8 sectors × 3).
 
@@ -1514,3 +1514,28 @@ Assets/
     └── Sample Scenes/Scripts/
         └── SampleAvatarEntity.cs          — SDK sample script (modified: SwitchPreset added)
 ```
+
+---
+
+## Correction Log
+
+### 2026-08-30 — Anisotropic Kuwahara sector weighting: comment corrected, no behaviour change
+
+**File:** `Assets/Shaders/AvaturnNPRShaders/AnisotropicKuwahara_V2.shader` (header comment, item 2).
+
+**What was wrong.** The comment described the V1 weight as an "ad hoc scale" and attributed the V2 weight to "Kyprianidis eq. 6". Both labels were incorrect. The two expressions are *two different published Kyprianidis variants*, not a wrong one and a right one:
+
+| Form | Used by | Source |
+| --- | --- | --- |
+| `w = 1/(1 + pow(variance * 1000.0, 0.5*q))` | `AnisotropicKuwahara.shader`, `AnisotropicKuwaharaCorrected.shader` (Avaturn **and** Jade) | Kyprianidis et al. 2009, Pacific Graphics: `alpha_i = 1/(1 + ||s_i||^q)`. The `1+` term exists to avoid the indetermination when a sector's standard deviation is zero. |
+| `w = 1/pow(max(tau, sqrt(variance)), q)` | `AnisotropicKuwahara_V2.shader` only | Kyprianidis 2011, multi-scale: `omega_i = (max(tau_w, ||s_i||))^-q`. |
+
+The `* 1000.0` factor is also not arbitrary. The 2009 paper states its weights "assume that the values of the input image are given as integer values, e.g. in the range 0…255", so a shader operating on normalised 0–1 floats requires a range-compensating scale. The halved exponent is the identity `(sigma^2)^(q/2) = sigma^q`, which lets the variance be passed in directly and avoids a square root per sector.
+
+**What stays true.** The measured claim is unaffected: switching from variance to standard deviation sharpens the winner-takes-all ratio from roughly 10x to 1000x. That remains the reason V2 is preferred.
+
+**No shader logic was modified** — comment only. All four live shaders continue to use the 2009 form; only `_V2` uses the 2011 form.
+
+**Thesis impact.** `05_implementation.tex` §V6 previously claimed the two forms were "algebraically identical" and cited `kyprianidis2009` for both. It now cites `kyprianidis2011` for the Meta SDK form and `kyprianidis2009` for the Mixamo/Avaturn form, with each equation on the sentence describing it.
+
+**Terminology unified 2026-08-30.** Both papers weight sectors by the *standard deviation* `||s_i||`, and τ floors σ rather than the variance (`sig = sqrt(max(v, 0.0))` in `NPREffect_Kuwahara2.cginc`). "Variance floor" and "inverse-variance weighting" were therefore corrected to "standard-deviation floor" and "inverse-standard-deviation weighting" across 14 locations: the parameter table above; `NPREffect_Kuwahara2.cginc` (property comment and two block comments); `NPREffect_Kuwahara2Sobel.cginc` and `NPREffect_Kuwahara2GaussHier.cginc` (property comments); `AnisotropicKuwahara_V2.shader` (inline tau comment); the four V1-form shaders in `AvaturnNPRShaders/` and `JadeNPRShaders/`, whose blend comments now name the 2009 equation directly; `Assets/AvatarShaderExperimental/ShaderDocumentation.md`; and three passages in the thesis (`04_methodology.tex` §V6, `05_implementation.tex` §V6 prose and listing caption).

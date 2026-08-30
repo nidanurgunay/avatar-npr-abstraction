@@ -8,7 +8,7 @@
 //   • Filter region is an ellipse whose axes depend on A and whose rotation equals φ,
 //     so brushstrokes follow surface features rather than screen axes.
 //   • 8 overlapping sectors replace the 4 axis-aligned quadrants.
-//   • Output is a soft inverse-variance weighted blend of sector means
+//   • Output is a soft inverse-std-deviation weighted blend of sector means
 //     (ω_i = max(τ, σ_i)^{-q}, Kyprianidis §3.3.1), not a hard min-variance pick.
 // The multi-scale pyramid from the 2011 paper requires multiple render passes and
 // cannot be implemented inside AppSpecificPostManipulation.
@@ -18,7 +18,7 @@ float _K2Radius;    // Ellipse radius, UV-space  (0.5–8,    ×0.001)
 float _K2Strength;  // Blend with original colour (0–1)
 float _K2Alpha;     // Eccentricity tuning α      (0.5–3,   default 1.0)
 float _K2Q;         // Sector-weight sharpness q  (1–16,    default 8.0)
-float _K2Tau;       // Variance floor τ_w         (0.001–0.1, default 0.02)
+float _K2Tau;       // Std-deviation floor τ_w    (0.001–0.1, default 0.02)
 
 // Pre-computed 8 unit-disc sector centre directions (avoids 8 cos/sin calls at runtime).
 static const float2 K2_DIRS[8] = {
@@ -85,7 +85,7 @@ float4 ApplyNPREffect(float4 color, float2 uv, half3 worldNormal, half3 worldVie
     // Centre sample (shared across all 8 sectors)
     float3 cc = tex2D(u_BaseColorSampler, uv).rgb;
 
-    // ── 8-sector inverse-variance weighted blend ──────────────────────────────
+    // ── 8-sector inverse-std-deviation weighted blend ─────────────────────────
     float3 m0,m1,m2,m3,m4,m5,m6,m7;
     float  s0,s1,s2,s3,s4,s5,s6,s7;
 

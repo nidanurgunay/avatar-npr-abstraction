@@ -16,7 +16,7 @@ float _K2SKuwRadius;    // Ellipse radius, UV-space  (0.5–8,    ×0.001)
 float _K2SKuwStrength;  // Kuwahara blend             (0–1)
 float _K2SKuwAlpha;     // Eccentricity α             (0.5–3)
 float _K2SKuwQ;         // Weight sharpness q         (1–16)
-float _K2SKuwTau;       // Variance floor τ           (0.001–0.1)
+float _K2SKuwTau;       // Std-deviation floor τ      (0.001–0.1)
 
 // ── Phase 2: Gaussian Sobel parameters ────────────────────────────────────────
 float4 _InnerLineColor;
