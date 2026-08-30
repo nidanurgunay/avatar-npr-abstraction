@@ -2,7 +2,7 @@
 // Pass 0 — Outline : Cull Front, expands vertices along normals, flat outline colour.
 // Pass 1 — Surface : UniversalFragmentPBR with standard UnpackNormalScale decode.
 
-Shader "Custom/V1_InvertedHullOutline"
+Shader "Custom/InvertedHullOutline"
 {
     Properties
     {

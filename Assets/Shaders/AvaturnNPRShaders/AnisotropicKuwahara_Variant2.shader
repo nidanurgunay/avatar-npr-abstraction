@@ -37,7 +37,7 @@
 //   _ZeroCrossing — unused, kept for C# feature compatibility
 // =============================================================================
 
-Shader "NPR/AnisotropicKuwahara_V2"
+Shader "NPR/AnisotropicKuwahara_Variant2"
 {
     SubShader
     {

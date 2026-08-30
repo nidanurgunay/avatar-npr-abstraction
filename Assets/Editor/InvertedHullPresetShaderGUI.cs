@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-/// ShaderGUI for Custom/V1_InvertedHullOutline.
+/// ShaderGUI for Custom/InvertedHullOutline.
 /// Routes to JadePresets.asset for JadeHull_* materials and
 /// AvaturnSlotPresets.asset for VHull_* materials, keyed by asset path.
 public class InvertedHullPresetShaderGUI : ShaderGUI

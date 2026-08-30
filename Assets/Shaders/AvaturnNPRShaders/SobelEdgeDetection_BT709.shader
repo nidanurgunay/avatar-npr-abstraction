@@ -1,21 +1,23 @@
-// Version 3 (BT.709 comparison variant): Basic Sobel Edge Detection (NO PRE-BLUR)
+// Version 3 (BT.709 comparison variant): Basic Sobel Edge Detection (NO PRE-BLUR) – Avaturn Edition
+// Structurally aligned with V4; simple step-based Sobel is its unique feature.
+// Includes normal-map support and DepthNormals pass for screen-space normal writing.
 // Identical to V3_SobelEdgeDetection.shader except the luma weights used for the
 // Sobel luminance conversion, which use the ITU-R BT.709 (Rec. 709 / sRGB) coefficients
 // instead of ITU-R BT.601, for visual comparison purposes.
 
-Shader "Custom/V3_SobelEdgeDetection_BT709"
+Shader "Custom/SobelEdgeDetection_BT709"
 {
     Properties
     {
         [Header(DEBUG AND VISUALIZATION)]
-        [Toggle] _UseDebugDefaults ("Use Debug Defaults (overrides all settings below)", Float) = 0
+        [Toggle] _UseDebugDefaults ("Use Debug Defaults", Float) = 0
         [KeywordEnum(Final, RawSobel, AfterThreshold, AfterBlur, NormalEdge, FresnelEdge)] _DebugView ("Debug View", Float) = 0
         [Space(10)]
 
         [Header(Base)]
         _Color ("Main Color", Color) = (1,1,1,1)
         _MainTex ("Albedo Texture", 2D) = "white" {}
-        _TextureIntensity ("Texture Intensity", Range(0, 1)) = 1.0
+        _TextureIntensity ("Texture Intensity", Range(0,1)) = 1.0
 
         [Header(Normal Map)]
         [Normal]
@@ -36,33 +38,34 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
 
         [Header(Outer Outline)]
         [Toggle] _EnableOuterOutline ("Enable Outer Outline", Float) = 1
-        _OuterOutlineWidth ("Outer Outline Width (world units)", Range(0,0.5)) = 0.005
-        _OuterOutlineColor ("Outer Outline Color", Color) = (0,0,0,1)
-        [Toggle] _UseOutlineDepthOffset ("Use Depth Offset (fix z-fighting)", Float) = 0
-        _OutlineDepthBias ("Outline Depth Bias", Range(0, 5)) = 1.0
+        _OuterOutlineWidth ("Outer Outline Width", Range(0,0.5)) = 0.005
+        _OuterOutlineColor ("Outline Color", Color) = (0,0,0,1)
+        [Toggle] _UseOutlineDepthOffset ("Use Depth Offset", Float) = 0
+        _OutlineDepthBias ("Outline Depth Bias", Range(0,5)) = 1.0
 
         [Header(Inner Lines Sobel)]
         [Toggle] _EnableInnerLines ("Enable Inner Lines", Float) = 1
         _InnerLineColor ("Inner Line Color", Color) = (0,0,0,1)
-        _InnerLineThreshold ("Inner Line Threshold", Range(0.001, 0.5)) = 0.2
-        _InnerLineBlur ("Inner Line Sample Distance", Range(0.0, 10.0)) = 0.5
-        _InnerLineStrength ("Inner Line Strength", Range(0, 1)) = 1.0
+        _InnerLineThreshold ("Inner Line Threshold", Range(0.001,0.5)) = 0.2
+        _InnerLineBlur ("Inner Line Sample Distance", Range(0.0,10.0)) = 0.5
+        _InnerLineStrength ("Inner Line Strength", Range(0,1)) = 1.0
 
         [Header(Rim and Ambient)]
         [Toggle] _EnableRim ("Enable Rim Lighting", Float) = 1
         _RimColor ("Rim Color", Color) = (0.408,0.408,0.408,1)
-        _RimPower ("Rim Power", Range(0.1, 8.0)) = 3.0
+        _RimPower ("Rim Power", Range(0.1,8.0)) = 3.0
         _AmbientColor ("Ambient Color", Color) = (0.35,0.35,0.35,1)
 
         [Header(Alpha Test)]
-        [Toggle] _EnableAlphaTest ("Enable Alpha Test (for eyelashes)", Float) = 0
-        _AlphaCutoff ("Alpha Cutoff", Range(0, 1)) = 0.07
+        [Toggle] _EnableAlphaTest ("Alpha Test (eyelashes)", Float) = 0
+        _AlphaCutoff ("Alpha Cutoff", Range(0,1)) = 0.07
     }
 
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
 
+        // ── Outer outline (inverted hull) ────────────────────────────────────
         Pass
         {
             Name "OuterOutline"
@@ -71,29 +74,31 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
             ZTest Less
 
             HLSLPROGRAM
-            #pragma vertex vert_outline
+            #pragma vertex   vert_outline
             #pragma fragment frag_outline
-            #pragma target 3.5
+            #pragma target   3.5
             #pragma shader_feature_local _USEOUTLINEDEPTHOFFSET_ON
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "OvrVertexFetchBridge.hlsl"
 
-            struct appdata_outline { float4 vertex : POSITION; float3 normal : NORMAL; float2 uv : TEXCOORD0; };
-            struct v2f_outline { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
+            struct Attr_OL { float4 vertex : POSITION; float3 normal : NORMAL; float2 uv : TEXCOORD0; uint vertexID : SV_VertexID; };
+            struct Vary_OL { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
 
             TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
             float4 _MainTex_ST;
-            float _OuterOutlineWidth;
             float4 _OuterOutlineColor;
-            float _EnableAlphaTest;
-            float _AlphaCutoff;
-            float _OutlineDepthBias;
+            float  _OuterOutlineWidth;
+            float  _EnableAlphaTest;
+            float  _AlphaCutoff;
+            float  _OutlineDepthBias;
 
-            v2f_outline vert_outline(appdata_outline v)
+            Vary_OL vert_outline(Attr_OL v)
             {
-                v2f_outline o;
-                VertexPositionInputs posInputs = GetVertexPositionInputs(v.vertex.xyz);
-                VertexNormalInputs normInputs = GetVertexNormalInputs(v.normal);
-                o.pos = TransformWorldToHClip(posInputs.positionWS + normInputs.normalWS * _OuterOutlineWidth);
+                Vary_OL o;
+                OVR_FETCH_POS_NORM(v.vertex.xyz, v.normal, v.vertexID);
+                VertexPositionInputs pi = GetVertexPositionInputs(v.vertex.xyz);
+                VertexNormalInputs   ni = GetVertexNormalInputs(v.normal);
+                o.pos = TransformWorldToHClip(pi.positionWS + ni.normalWS * _OuterOutlineWidth);
 
                 #if _USEOUTLINEDEPTHOFFSET_ON
                     o.pos.z -= _OutlineDepthBias * 0.0001;
@@ -103,18 +108,16 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
                 return o;
             }
 
-            half4 frag_outline(v2f_outline i) : SV_Target
+            half4 frag_outline(Vary_OL i) : SV_Target
             {
                 if (_EnableAlphaTest > 0.5)
-                {
-                    half alpha = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv).a;
-                    clip(alpha - _AlphaCutoff);
-                }
+                    clip(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv).a - _AlphaCutoff);
                 return _OuterOutlineColor;
             }
             ENDHLSL
         }
 
+        // ── Forward lit ──────────────────────────────────────────────────────
         Pass
         {
             Name "ForwardLit"
@@ -124,21 +127,23 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
             ZTest LEqual
 
             HLSLPROGRAM
-            #pragma vertex vert
+            #pragma vertex   vert
             #pragma fragment frag
-            #pragma target 3.5
+            #pragma target   3.5
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma shader_feature_local _DETAILMODE_DEPTH _DETAILMODE_CURVATURE _DETAILMODE_MANUAL
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "OvrVertexFetchBridge.hlsl"
 
             struct appdata
             {
-                float4 vertex  : POSITION;
-                float3 normal  : NORMAL;
-                float4 tangent : TANGENT;
-                float2 uv      : TEXCOORD0;
+                float4 vertex   : POSITION;
+                float3 normal   : NORMAL;
+                float4 tangent  : TANGENT;
+                float2 uv       : TEXCOORD0;
+                uint   vertexID : SV_VertexID;
             };
 
             struct v2f
@@ -168,6 +173,7 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
             v2f vert(appdata v)
             {
                 v2f o;
+                OVR_FETCH_POS_NORM(v.vertex.xyz, v.normal, v.vertexID);
                 VertexPositionInputs pi = GetVertexPositionInputs(v.vertex.xyz);
                 VertexNormalInputs   ni = GetVertexNormalInputs(v.normal, v.tangent);
                 o.pos       = pi.positionCS;
@@ -184,28 +190,27 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
             {
                 // Local copies for debug override
                 float textureIntensity = _TextureIntensity;
-                float shadowStrength = _ShadowStrength;
-                float rimPower = _RimPower;
+                float shadowStrength   = _ShadowStrength;
+                float rimPower         = _RimPower;
 
                 if (_UseDebugDefaults > 0.5)
                 {
                     textureIntensity = 1.0;
-                    shadowStrength = 0.6;
-                    rimPower = 5.0;
+                    shadowStrength   = 0.6;
+                    rimPower         = 5.0;
                 }
 
                 half4 texColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-
                 if (_EnableAlphaTest > 0.5)
-                {
                     clip(texColor.a - _AlphaCutoff);
-                }
 
                 half3 baseColor = lerp(_Color.rgb, texColor.rgb * _Color.rgb, textureIntensity);
-                half4 albedo = half4(baseColor, texColor.a * _Color.a);
+                half4 albedo    = half4(baseColor, texColor.a * _Color.a);
 
-                // Normal map → world-space normal (Unity FBX standard decode)
-                half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, IN.uv), _BumpScale);
+                // Normal map → world-space normal (GLTFast GLB raw-RGB format)
+                half3 normalTS = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, IN.uv).rgb * 2.0h - 1.0h;
+                normalTS.xy   *= _BumpScale;
+                normalTS        = normalize(normalTS);
                 float3x3 TBN   = float3x3(normalize(IN.tWS), normalize(IN.bWS), normalize(IN.nWS));
                 float3 nWS     = normalize(mul(normalTS, TBN));
 
@@ -214,26 +219,26 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
                 int debugMode = (int)_DebugView;
 
                 // ==================== TEXTURE SOBEL EDGE DETECTION (SIMPLE STEP) ====================
-                // BT.709 luma coefficients (Rec. 709 / sRGB) instead of BT.601
                 float sobelEdge = 0.0;
                 if (_EnableInnerLines > 0.5)
                 {
-                    float offset = _InnerLineBlur * 0.001;
+                    float off   = _InnerLineBlur * 0.001;
+                    float3 luma = float3(0.2126, 0.7152, 0.0722); // BT.709 (Rec. 709 / sRGB) luma weights
 
-                    float tl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float t  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float tr = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float l  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,       0)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float r  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,       0)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float bl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float b  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
-                    float br = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float tl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-off,  off)).rgb, luma);
+                    float t  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(   0,  off)).rgb, luma);
+                    float tr = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( off,  off)).rgb, luma);
+                    float l  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-off,    0)).rgb, luma);
+                    float r  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( off,    0)).rgb, luma);
+                    float bl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-off, -off)).rgb, luma);
+                    float b  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(   0, -off)).rgb, luma);
+                    float br = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( off, -off)).rgb, luma);
 
-                    float sobelX = (tr + 2.0 * r + br) - (tl + 2.0 * l + bl);
-                    float sobelY = (tl + 2.0 * t + tr) - (bl + 2.0 * b + br);
-                    float edgeMagnitude = sqrt(sobelX * sobelX + sobelY * sobelY);
+                    float sobelX  = (tr + 2.0*r + br) - (tl + 2.0*l + bl);
+                    float sobelY  = (tl + 2.0*t + tr) - (bl + 2.0*b + br);
+                    float edgeMag = sqrt(sobelX * sobelX + sobelY * sobelY);
 
-                    sobelEdge = step(_InnerLineThreshold, edgeMagnitude) * _InnerLineStrength;
+                    sobelEdge = step(_InnerLineThreshold, edgeMag) * _InnerLineStrength;
                 }
 
                 if (debugMode == 1) return half4(sobelEdge.xxx, 1.0); // RawSobel
@@ -327,7 +332,9 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
 
             float4 DNFrag(DNVary i) : SV_Target
             {
-                half3 nTS    = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv), _BumpScale);
+                half3 nTS    = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv).rgb * 2.0h - 1.0h;
+                nTS.xy      *= _BumpScale;
+                nTS           = normalize(nTS);
                 float3x3 TBN = float3x3(normalize(i.tangentWS),
                                         normalize(i.bitangentWS),
                                         normalize(i.normalWS));
@@ -337,6 +344,6 @@ Shader "Custom/V3_SobelEdgeDetection_BT709"
             ENDHLSL
         }
     }
-    FallBack "Hidden/Universal Render Pipeline/FallbackError"
     CustomEditor "AvaturnPresetShaderGUI"
+    FallBack "Hidden/Universal Render Pipeline/FallbackError"
 }

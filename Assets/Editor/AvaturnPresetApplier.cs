@@ -13,13 +13,13 @@ public class AvaturnPresetApplier : EditorWindow
 
     static readonly string[] ShaderNames =
     {
-        "Custom/V4_GaussianPreFilteredSobel",
-        "Custom/V5_HierarchicalGaussian",
-        "Custom/V3_SobelEdgeDetection",
+        "Custom/GaussianPrefilteredSobel",
+        "Custom/HierarchicalGaussian_Forward",
+        "Custom/SobelEdgeDetection",
         "Custom/V7_KuwaharaSobel",
     };
 
-    string   _selectedShader = "Custom/V4_GaussianPreFilteredSobel";
+    string   _selectedShader = "Custom/GaussianPrefilteredSobel";
     string   _selectedPreset = "";
     string   _sourceSlot     = "Look";
     string   _statusMsg      = "";

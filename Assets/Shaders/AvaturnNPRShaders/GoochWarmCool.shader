@@ -5,7 +5,7 @@
 // optionally quantized into toon bands. Inspired by NPR rendering approaches
 // documented in VR rehabilitation literature (Springer Virtual Reality, 2024).
 
-Shader "Custom/V9_GoochWarmCool"
+Shader "Custom/GoochWarmCool"
 {
     Properties
     {

@@ -3,7 +3,7 @@
 // Chromatic edges: Sobel applied to a colour-proximity mask instead of luminance,
 //   so edges fire specifically at lip/brow colour boundaries rather than all texture contrast.
 
-Shader "Custom/V6_ChromaticEdge"
+Shader "Custom/ChromaticEdge"
 {
     Properties
     {

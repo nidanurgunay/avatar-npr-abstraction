@@ -11,7 +11,7 @@
 // Outline:  inverted-hull geometry pass
 // DepthNormals: feeds bump-map detail into URP's _CameraNormalsTexture
 
-Shader "Custom/V8_QuantizedSobel"
+Shader "Custom/QuantizedSobel"
 {
     Properties
     {

@@ -2,7 +2,7 @@
 // Combines: Toon Shading + Configurable Gaussian Pre-Blur Sobel + Normal Edge Detection
 // Each processing step can be toggled independently for analysis
 
-Shader "Custom/V4_GaussianPreFilteredSobel"
+Shader "Custom/GaussianPrefilteredSobel"
 {
     Properties
     {

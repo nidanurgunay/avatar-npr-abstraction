@@ -1,7 +1,7 @@
 // Version 1: Base Toon Shader (No Inner Line Detection)
 // This version demonstrates the basic toon shading with only outer outlines
 
-Shader "Custom/V1_ToonShading_GeometryOutline"
+Shader "Custom/ToonShading_Outline"
 {
     Properties
     {

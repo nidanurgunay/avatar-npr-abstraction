@@ -5,7 +5,7 @@
 // SampleLuminanceBlurred, which use the ITU-R BT.709 (Rec. 709 / sRGB) coefficients
 // instead of ITU-R BT.601, for visual comparison purposes.
 
-Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
+Shader "Custom/GaussianPrefilteredSobel_BT709"
 {
     Properties
     {

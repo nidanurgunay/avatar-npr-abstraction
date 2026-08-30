@@ -11,7 +11,7 @@
 //   Fusion       — weighted max-pooling of the three layers
 //   Adaptive     — brightness-based suppression to protect highlights
 
-Shader "Custom/V5_HierarchicalGaussian"
+Shader "Custom/HierarchicalGaussian_Forward"
 {
     Properties
     {

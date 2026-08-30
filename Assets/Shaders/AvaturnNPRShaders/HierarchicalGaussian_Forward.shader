@@ -5,7 +5,7 @@
 //     receives normal-map-perturbed normals from the Avaturn mesh
 //   • OVR vertex fetch bridge for Meta SDK skinning compatibility
 
-Shader "Custom/Avaturn_V5_HierarchicalGaussian"
+Shader "Custom/Avaturn_HierarchicalGaussian_Forward"
 {
     Properties
     {

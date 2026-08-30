@@ -1,11 +1,8 @@
-// Version 10 (BT.709 comparison variant): Ultimate Combined Toon Shader - MODULAR EDITION
+// Version 10: Ultimate Combined Toon Shader - MODULAR EDITION
 // Combines: Toon Shading + Configurable Gaussian Pre-Blur Sobel + Normal Edge Detection
 // Each processing step can be toggled independently for analysis
-// Identical to V4_GaussianPreFilteredSobel.shader except the luma weights used in
-// SampleLuminanceBlurred, which use the ITU-R BT.709 (Rec. 709 / sRGB) coefficients
-// instead of ITU-R BT.601, for visual comparison purposes.
 
-Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
+Shader "Custom/GaussianPrefilteredSobel"
 {
     Properties
     {
@@ -16,7 +13,7 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
 
         [Header(Base)]
         _Color ("Main Color", Color) = (1,1,1,1)
-        _MainTex ("Texture", 2D) = "white" {}
+        _MainTex ("Albedo Texture", 2D) = "white" {}
         _TextureIntensity ("Texture Intensity", Range(0, 1)) = 1.0
 
         [Header(Normal Map)]
@@ -41,7 +38,7 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
         _OuterOutlineWidth ("Outer Outline Width", Range(0, 0.5)) = 0.005
         _OuterOutlineColor ("Outer Outline Color", Color) = (0,0,0,1)
         [Toggle] _UseOutlineDepthOffset ("Use Depth Offset", Float) = 0
-        _OutlineDepthBias ("Outline Depth Bias", Range(0, 15)) = 1.0
+        _OutlineDepthBias ("Outline Depth Bias", Range(0, 5)) = 1.0
 
         [Header(Edge Detection Modes)]
         [Toggle] _EnableTextureSobel ("Enable Texture Sobel", Float) = 1
@@ -125,9 +122,8 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
             #pragma target 3.5
             #pragma shader_feature_local _USEOUTLINEDEPTHOFFSET_ON
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "OvrVertexFetchBridge.hlsl"
 
-            struct appdata_outline { float4 vertex : POSITION; float3 normal : NORMAL; float2 uv : TEXCOORD0; uint vertexID : SV_VertexID; };
+            struct appdata_outline { float4 vertex : POSITION; float3 normal : NORMAL; float2 uv : TEXCOORD0; };
             struct v2f_outline { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
 
             TEXTURE2D(_MainTex);
@@ -142,19 +138,12 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
             v2f_outline vert_outline(appdata_outline v)
             {
                 v2f_outline o;
-                OVR_FETCH_POS_NORM(v.vertex.xyz, v.normal, v.vertexID);
                 VertexPositionInputs posInputs = GetVertexPositionInputs(v.vertex.xyz);
                 VertexNormalInputs normInputs = GetVertexNormalInputs(v.normal);
                 o.pos = TransformWorldToHClip(posInputs.positionWS + normInputs.normalWS * _OuterOutlineWidth);
 
                 #if _USEOUTLINEDEPTHOFFSET_ON
-                    // Multiply by pos.w so the offset is perspective-correct (same NDC push at any distance).
-                    // UNITY_REVERSED_Z handles Metal/DX reversed depth vs OpenGL.
-                    #if UNITY_REVERSED_Z
-                        o.pos.z -= _OutlineDepthBias * 0.001 * o.pos.w;
-                    #else
-                        o.pos.z += _OutlineDepthBias * 0.001 * o.pos.w;
-                    #endif
+                    o.pos.z -= _OutlineDepthBias * 0.0001;
                 #endif
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -189,15 +178,13 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            #include "OvrVertexFetchBridge.hlsl"
 
             struct appdata
             {
-                float4 vertex   : POSITION;
-                float3 normal   : NORMAL;
-                float4 tangent  : TANGENT;
-                float2 uv       : TEXCOORD0;
-                uint   vertexID : SV_VertexID;
+                float4 vertex  : POSITION;
+                float3 normal  : NORMAL;
+                float4 tangent : TANGENT;
+                float2 uv      : TEXCOORD0;
             };
 
             struct v2f
@@ -253,7 +240,7 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
             float SampleLuminanceBlurred(float2 uv, float blurRadius, float centerW, float cardinalW, float diagonalW)
             {
                 float lum = 0.0;
-                float3 lumCoeff = float3(0.2126, 0.7152, 0.0722); // BT.709 (Rec. 709 / sRGB) luma weights
+                float3 lumCoeff = float3(0.299, 0.587, 0.114);
 
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, lumCoeff) * centerW;
 
@@ -273,16 +260,15 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
             v2f vert(appdata v)
             {
                 v2f o;
-                OVR_FETCH_POS_NORM(v.vertex.xyz, v.normal, v.vertexID);
-                VertexPositionInputs posInputs = GetVertexPositionInputs(v.vertex.xyz);
-                VertexNormalInputs normInputs = GetVertexNormalInputs(v.normal, v.tangent);
-                o.pos       = posInputs.positionCS;
+                VertexPositionInputs pi = GetVertexPositionInputs(v.vertex.xyz);
+                VertexNormalInputs   ni = GetVertexNormalInputs(v.normal, v.tangent);
+                o.pos       = pi.positionCS;
                 o.uv        = TRANSFORM_TEX(v.uv, _MainTex);
-                o.posWS     = posInputs.positionWS;
-                o.nWS       = normInputs.normalWS;
-                o.viewDirWS = GetWorldSpaceViewDir(posInputs.positionWS);
-                o.tWS       = normInputs.tangentWS;
-                o.bWS       = normInputs.bitangentWS;
+                o.posWS     = pi.positionWS;
+                o.nWS       = ni.normalWS;
+                o.viewDirWS = GetWorldSpaceViewDir(pi.positionWS);
+                o.tWS       = ni.tangentWS;
+                o.bWS       = ni.bitangentWS;
                 return o;
             }
 
@@ -310,10 +296,8 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
                 half3 baseColor = lerp(_Color.rgb, texColor.rgb * _Color.rgb, textureIntensity);
                 half4 albedo = half4(baseColor, texColor.a * _Color.a);
 
-                // Normal map → world-space normal (GLTFast GLB raw-RGB format)
-                half3 normalTS = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, IN.uv).rgb * 2.0h - 1.0h;
-                normalTS.xy   *= _BumpScale;
-                normalTS        = normalize(normalTS);
+                // Normal map → world-space normal (Unity FBX standard decode)
+                half3 normalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, IN.uv), _BumpScale);
                 float3x3 TBN   = float3x3(normalize(IN.tWS), normalize(IN.bWS), normalize(IN.nWS));
                 float3 nWS     = normalize(mul(normalTS, TBN));
 
@@ -598,9 +582,7 @@ Shader "Custom/V4_GaussianPreFilteredSobel_BT709"
 
             float4 DNFrag(DNVary i) : SV_Target
             {
-                half3 nTS    = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv).rgb * 2.0h - 1.0h;
-                nTS.xy      *= _BumpScale;
-                nTS           = normalize(nTS);
+                half3 nTS    = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv), _BumpScale);
                 float3x3 TBN = float3x3(normalize(i.tangentWS),
                                         normalize(i.bitangentWS),
                                         normalize(i.normalWS));

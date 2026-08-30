@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-/// Custom Inspector for Custom/Avaturn_V5_HierarchicalGaussian and Custom/V5_HierarchicalGaussian.
+/// Custom Inspector for Custom/Avaturn_HierarchicalGaussian_Forward and Custom/HierarchicalGaussian_Forward.
 /// Shows a collapsible preset panel for each avatar slot (Head / Body / Hair / Eyelash / Look).
 /// Each panel compares current values against the saved defaults and has an Apply button.
 public class V5HierarchicalShaderGUI : ShaderGUI
