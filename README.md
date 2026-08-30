@@ -41,8 +41,8 @@ composite of outline, X-Toon shading and the Sobel operator.
 
 | Thesis | Technique | Mixamo / Avaturn | Meta Avatars SDK | SDK keyword |
 | --- | --- | --- | --- | --- |
-| V1 | Geometric silhouette outline | [`ToonShading_Outline.shader`](Assets/Shaders/JadeNPRShaders/ToonShading_Outline.shader), [`InvertedHullOutline.shader`](Assets/Shaders/CommonNPRShaders/InvertedHullOutline.shader) | `NPROutline` pass in [`Avatar-Meta-UGB.shader`](Assets/Shaders/MetaAvatarShaders/Avatar-Meta-UGB.shader) | `OUTLINE_PASS` |
-| V2 | Toon shading | [`ToonShading_Outline.shader`](Assets/Shaders/JadeNPRShaders/ToonShading_Outline.shader) | [`NPREffect_Toon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Toon.cginc) | `EFFECT_TOON` |
+| V1 | Geometric silhouette outline | [`ToonShading_Outline.shader`](Assets/Shaders/CommonNPRShaders/ToonShading_Outline.shader), [`InvertedHullOutline.shader`](Assets/Shaders/CommonNPRShaders/InvertedHullOutline.shader) | `NPROutline` pass in [`Avatar-Meta-UGB.shader`](Assets/Shaders/MetaAvatarShaders/Avatar-Meta-UGB.shader) | `OUTLINE_PASS` |
+| V2 | Toon shading | [`ToonShading_Outline.shader`](Assets/Shaders/CommonNPRShaders/ToonShading_Outline.shader) | [`NPREffect_Toon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Toon.cginc) | `EFFECT_TOON` |
 | V2.2 | X-Toon shading | [`XToon_2DRamp.shader`](Assets/Shaders/JadeNPRShaders/XToon_2DRamp.shader) | [`NPREffect_XToon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_XToon.cginc) | `EFFECT_XTOON` |
 | V3 | Screen-space normal edge detection | [`NormalEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/NormalEdgeDetection.shader) | [`NPREffect_NormalEdge.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_NormalEdge.cginc) | `EFFECT_NORMAL_EDGE` |
 | V4 | Sobel edge detection | [`SobelEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/SobelEdgeDetection.shader) | [`NPREffect_Sobel.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Sobel.cginc) | `EFFECT_SOBEL` |
