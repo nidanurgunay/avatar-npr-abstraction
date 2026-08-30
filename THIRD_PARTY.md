@@ -13,6 +13,13 @@ Third-party material is listed below and remains under its own terms.
 | Idle and gesture animations | `Assets/Animations/`, `Assets/AvatarShaderExperimental/Animations/` | Mixamo, Adobe. Same terms. |
 | Avaturn avatar | `Assets/Avatars/` | Generated with [Avaturn](https://avaturn.me) from a photograph of the author. |
 | TextMesh Pro essentials | `Assets/TextMesh Pro/` | Unity Technologies, distributed with Unity. |
+| Wall materials `brick_03`, `brick_04` and their four textures | `Assets/AvatarShaderExperimental/TexturesPart01/` | Unity Asset Store texture pack. |
+| Floor material `M_YFFlM_05` and its three textures | `Assets/AvatarShaderExperimental/YughuesFreeFlooringMaterials/` | Yughues Free Flooring Materials, by Nobiax / Yughues, free on the Unity Asset Store. |
+
+Only the three materials the study scenes reference are included, together with their five textures, roughly
+14 MB in total. The rest of both packs, about 280 MB, is not redistributed. These materials form the neutral
+studio environment described in Chapter 5 and carry no part of the contribution. They are present so that the
+scenes open with the same appearance as the figures in the thesis.
 
 ---
 
@@ -22,8 +29,6 @@ Third-party material is listed below and remains under its own terms.
 | --- | --- | --- |
 | Meta Avatars SDK 40.0.1 | Redistribution is not permitted under the Oculus SDK Licence Agreement | [Meta Horizon developer downloads](https://developers.meta.com/horizon/downloads/package/meta-avatars-sdk/) |
 | Meta Avatars SDK sample scenes and preset avatars | Same | Imported with the SDK package |
-| Textures Pack Vol. 1 | Asset Store licence does not permit redistribution | Unity Asset Store |
-| Yughues Free Flooring Materials | Same | Unity Asset Store |
 | uLipSync | Resolved as a package dependency | [github.com/hecomi/uLipSync](https://github.com/hecomi/uLipSync) |
 
 ---
