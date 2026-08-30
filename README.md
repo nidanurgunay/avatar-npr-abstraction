@@ -66,11 +66,19 @@ describes. Both are kept here so the historical record is complete.
 The Meta Avatars SDK cannot run a post-process pass, so its V5 reconstructs the cues per fragment inside
 `NPREffect_Hierarchical.cginc`, with an adaptive gain following the AHEAD approach.
 
-### Additional shaders
+### What is not here
 
-`Assets/Shaders/` also holds exploratory variants that were developed but not carried into the thesis, among
-them chromatic edge detection, quantised Sobel, halftone and hatching. They are retained for completeness and
-are not part of the reported technique set.
+Exploratory work that the thesis does not report has been removed, so every Meta Avatars SDK effect that
+remains corresponds to a technique in Chapter 4. The two combination effects from an earlier plan, Kuwahara
+with Sobel and a Kuwahara, Gaussian and hierarchical composite, were dropped before the Methodology chapter
+was finalised and are gone along with the halftone, hatching and toon combination variants. Duplicate BT.709
+luma variants and superseded Kuwahara revisions were removed as well.
+
+A few files remain that are not part of the reported technique set, each for a reason. `ChromaticEdge.shader`
+and `QuantizedSobel.shader` are still assigned to Avaturn material sets. `HalftoneHatching.shader` and
+`MultiScaleKuwahara.shader` back a renderer feature and a material set that the scenes still reference.
+`AvatarMaskCapture.shader` is resolved by name from three renderer features. `HierarchicalGaussian_Forward.shader`
+is kept for the reason given above.
 
 ---
 

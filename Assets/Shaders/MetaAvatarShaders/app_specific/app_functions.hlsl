@@ -6,7 +6,7 @@
 // MOD END MetaNPR
 
 // MOD START MetaNPR: technique selection (mutually exclusive; default = Derivative)
-#pragma multi_compile __ EFFECT_SOBEL EFFECT_NORMAL_EDGE EFFECT_GAUSS_SOBEL EFFECT_HIERARCHICAL EFFECT_KUWAHARA EFFECT_KUWAHARA_SOBEL EFFECT_KUW_GAUSS_HIER EFFECT_TOON EFFECT_TOON_SOBEL EFFECT_TOON_HIER EFFECT_HALFTONE EFFECT_HATCHING EFFECT_XTOON
+#pragma multi_compile __ EFFECT_SOBEL EFFECT_NORMAL_EDGE EFFECT_GAUSS_SOBEL EFFECT_HIERARCHICAL EFFECT_KUWAHARA EFFECT_TOON EFFECT_XTOON
 // XToon detail-axis mode (matches Jade/Avaturn [KeywordEnum(Depth, Curvature, Manual)])
 #pragma multi_compile _DETAILMODE_DEPTH _DETAILMODE_CURVATURE _DETAILMODE_MANUAL
 // MOD END MetaNPR
@@ -23,20 +23,8 @@
     #include "../NPREffect_Hierarchical.cginc"
   #elif defined(EFFECT_KUWAHARA)
     #include "../NPREffect_Kuwahara2.cginc"
-  #elif defined(EFFECT_KUWAHARA_SOBEL)
-    #include "../NPREffect_Kuwahara2Sobel.cginc"
-  #elif defined(EFFECT_KUW_GAUSS_HIER)
-    #include "../NPREffect_Kuwahara2GaussHier.cginc"
   #elif defined(EFFECT_TOON)
     #include "../NPREffect_Toon.cginc"
-  #elif defined(EFFECT_TOON_SOBEL)
-    #include "../NPREffect_ToonSobel.cginc"
-  #elif defined(EFFECT_TOON_HIER)
-    #include "../NPREffect_ToonGaussHier.cginc"
-  #elif defined(EFFECT_HALFTONE)
-    #include "../NPREffect_Halftone.cginc"
-  #elif defined(EFFECT_HATCHING)
-    #include "../NPREffect_Hatching.cginc"
   #elif defined(EFFECT_XTOON)
     #include "../NPREffect_XToon.cginc"
   #else
@@ -79,7 +67,7 @@ void AppSpecificPostManipulation(avatar_FragmentInput i, inout avatar_FragmentOu
 #endif
 
 #if defined(ENABLE_NPR_EDGES) && !defined(OUTLINE_PASS)
-  #if defined(EFFECT_SOBEL) || defined(EFFECT_NORMAL_EDGE) || defined(EFFECT_GAUSS_SOBEL) || defined(EFFECT_HIERARCHICAL) || defined(EFFECT_KUWAHARA) || defined(EFFECT_KUWAHARA_SOBEL) || defined(EFFECT_KUW_GAUSS_HIER) || defined(EFFECT_TOON) || defined(EFFECT_TOON_SOBEL) || defined(EFFECT_TOON_HIER) || defined(EFFECT_HALFTONE) || defined(EFFECT_HATCHING) || defined(EFFECT_XTOON)
+  #if defined(EFFECT_SOBEL) || defined(EFFECT_NORMAL_EDGE) || defined(EFFECT_GAUSS_SOBEL) || defined(EFFECT_HIERARCHICAL) || defined(EFFECT_KUWAHARA) || defined(EFFECT_TOON) || defined(EFFECT_XTOON)
     #if defined(EFFECT_XTOON) || defined(EFFECT_HIERARCHICAL)
     // XToon and Hierarchical need positionWS for depth — pass it as 5th arg.
     o.color = ApplyNPREffect(o.color, i.geometry.texcoord_0,

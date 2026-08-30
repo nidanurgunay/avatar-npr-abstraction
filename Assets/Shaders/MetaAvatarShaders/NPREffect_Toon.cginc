@@ -4,7 +4,7 @@
 // Cel / toon shading — Technique 9 (keyword EFFECT_TOON).
 // Pure colour posterisation only — no edge detection.
 // Use the inverted-hull outline pass for silhouette lines,
-// or switch to EFFECT_TOON_SOBEL / EFFECT_TOON_HIER for image-space edges.
+// or switch to EFFECT_SOBEL / EFFECT_HIERARCHICAL for image-space edges.
 // Requires ENABLE_NPR_EDGES + EFFECT_TOON keywords.
 
 float  _ToonColorBands;        // discrete colour steps per channel  (2–8)

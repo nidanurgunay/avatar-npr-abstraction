@@ -19,9 +19,9 @@ public class NPREdgeDetectionUI : MonoBehaviour
     private const float CANVAS_W = 1000f;
 
     // ── Technique ─────────────────────────────────────────────────────────────
-    private enum Technique { Derivative = 0, Sobel = 1, NormalEdge = 2, GaussSobel = 3, Hierarchical = 4, Kuwahara = 5, KuwaharaSobel = 6, KuwGaussHier = 7, Toon = 8, ToonSobel = 9, ToonHier = 10, Halftone = 11, Hatching = 12, XToon = 13, InvertedHull = 14 }
-    private static readonly string[] TechniqueNames    = { "Derivative", "Sobel", "Normal+Fresnel", "Gauss Sobel", "Hierarchical", "Kuwahara", "Kuwahara+Sobel", "Kuw+Hier", "Toon", "Toon+Sobel", "Toon+Hier", "Halftone", "Hatching", "X-Toon", "Inverted Hull" };
-    private static readonly string[] TechniqueKeywords = { "", "EFFECT_SOBEL", "EFFECT_NORMAL_EDGE", "EFFECT_GAUSS_SOBEL", "EFFECT_HIERARCHICAL", "EFFECT_KUWAHARA", "EFFECT_KUWAHARA_SOBEL", "EFFECT_KUW_GAUSS_HIER", "EFFECT_TOON", "EFFECT_TOON_SOBEL", "EFFECT_TOON_HIER", "EFFECT_HALFTONE", "EFFECT_HATCHING", "EFFECT_XTOON", "" };
+    private enum Technique { Derivative = 0, Sobel = 1, NormalEdge = 2, GaussSobel = 3, Hierarchical = 4, Kuwahara = 5, Toon = 6, XToon = 7, InvertedHull = 8 }
+    private static readonly string[] TechniqueNames    = { "Derivative", "Sobel", "Normal Edge", "Gauss Sobel", "Hierarchical", "Kuwahara", "Toon", "X-Toon", "Inverted Hull" };
+    private static readonly string[] TechniqueKeywords = { "", "EFFECT_SOBEL", "EFFECT_NORMAL_EDGE", "EFFECT_GAUSS_SOBEL", "EFFECT_HIERARCHICAL", "EFFECT_KUWAHARA", "EFFECT_TOON", "EFFECT_XTOON", "" };
     private Technique _currentTechnique = Technique.Derivative;
 
     // ── Display mode (cycles on the Mode row) ────────────────────────────────
