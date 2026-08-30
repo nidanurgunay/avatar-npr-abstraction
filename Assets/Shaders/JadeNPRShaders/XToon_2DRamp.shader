@@ -320,7 +320,7 @@ Shader "NPR/XToon_2DRamp_Jade"
                 if (_EnableSobel > 0.5)
                 {
                     float off = _SobelSampleDist * 0.001;
-                    float3 lumaCoeff = float3(0.299, 0.587, 0.114);
+                    float3 lumaCoeff = float3(0.2126, 0.7152, 0.0722);
                     float tl = dot(SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv + float2(-off,  off)).rgb, lumaCoeff);
                     float t  = dot(SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv + float2(   0,  off)).rgb, lumaCoeff);
                     float tr = dot(SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv + float2( off,  off)).rgb, lumaCoeff);

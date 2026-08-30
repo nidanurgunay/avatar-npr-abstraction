@@ -206,7 +206,7 @@ Shader "Custom/Avaturn_HierarchicalGaussian_Forward"
                 float  _LightSensitivity, _RampSmoothing, _DetailBias, _DepthNear, _DepthFar, _ManualDetail;
             CBUFFER_END
 
-            static const float3 LUMA = float3(0.299, 0.587, 0.114);
+            static const float3 LUMA = float3(0.2126, 0.7152, 0.0722);
 
             float3 RGBtoHSV(float3 c)
             {

@@ -250,7 +250,7 @@ Shader "Custom/GaussianPrefilteredSobel"
             float SampleLuminanceBlurred(float2 uv, float blurRadius, float centerW, float cardinalW, float diagonalW)
             {
                 float lum = 0.0;
-                float3 lumCoeff = float3(0.299, 0.587, 0.114);
+                float3 lumCoeff = float3(0.2126, 0.7152, 0.0722);
 
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, lumCoeff) * centerW;
 

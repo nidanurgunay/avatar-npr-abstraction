@@ -24,7 +24,7 @@ float  _GSobelStrength;       // Overall edge opacity (0–1)
 // 9-tap Gaussian weighted luminance centred on `center`
 float GaussianLuma(float2 center, float blurR, float cW, float cardW, float diagW)
 {
-    float3 L = float3(0.299, 0.587, 0.114);
+    float3 L = float3(0.2126, 0.7152, 0.0722);
     float  v = 0.0;
     v += dot(tex2D(u_BaseColorSampler, center).rgb,                                L) * cW;
     v += dot(tex2D(u_BaseColorSampler, center + float2( blurR,     0)).rgb,        L) * cardW;

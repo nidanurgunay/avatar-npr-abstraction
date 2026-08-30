@@ -44,7 +44,7 @@ float3 RGBtoHSV_H(float3 c) {
 // 9-tap Gaussian-weighted luminance centred at uv with configurable radius.
 float HGaussianLuma(float2 uv, float br, float cW, float cardW, float diagW)
 {
-    float3 L = float3(0.299, 0.587, 0.114);
+    float3 L = float3(0.2126, 0.7152, 0.0722);
     float v  = dot(tex2D(u_BaseColorSampler, uv).rgb,                         L) * cW;
     v += dot(tex2D(u_BaseColorSampler, uv + float2( br,  0)).rgb,             L) * cardW;
     v += dot(tex2D(u_BaseColorSampler, uv + float2(-br,  0)).rgb,             L) * cardW;

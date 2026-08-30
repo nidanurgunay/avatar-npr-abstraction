@@ -204,7 +204,7 @@ Shader "Custom/NormalEdgeDetection"
             float SampleLuminanceBlurred(float2 uv, float blurRadius)
             {
                 float lum = 0.0;
-                float3 lumCoeff = float3(0.299, 0.587, 0.114);
+                float3 lumCoeff = float3(0.2126, 0.7152, 0.0722);
 
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, lumCoeff) * 0.25;
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv + float2(blurRadius, 0)).rgb, lumCoeff) * 0.125;
@@ -222,7 +222,7 @@ Shader "Custom/NormalEdgeDetection"
             // Simple luminance sampling (no blur)
             float SampleLuminance(float2 uv)
             {
-                return dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, float3(0.299, 0.587, 0.114));
+                return dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, float3(0.2126, 0.7152, 0.0722));
             }
 
             v2f vert(appdata v)

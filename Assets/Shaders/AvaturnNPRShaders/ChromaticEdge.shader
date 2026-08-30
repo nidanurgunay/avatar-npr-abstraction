@@ -289,7 +289,7 @@ Shader "Custom/ChromaticEdge"
             // Luminance-based 9-tap Gaussian sample (used for standard Sobel)
             float SampleLuminanceBlurred(float2 uv, float br, float cW, float kW, float dW)
             {
-                float3 lc = float3(0.299, 0.587, 0.114);
+                float3 lc = float3(0.2126, 0.7152, 0.0722);
                 float  lum = 0.0;
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).rgb, lc) * cW;
                 lum += dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv + float2( br,  0)).rgb, lc) * kW;

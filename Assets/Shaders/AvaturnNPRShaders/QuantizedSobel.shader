@@ -286,7 +286,7 @@ Shader "Custom/QuantizedSobel"
                 // ── Quantized texture for Sobel edge detection only ───────────
                 float3 quantized = Quantize(texColor.rgb, _QuantizeSteps);
 
-                float3 luma = float3(0.299, 0.587, 0.114);
+                float3 luma = float3(0.2126, 0.7152, 0.0722);
 
                 // ── Sobel on quantized texture ────────────────────────────────
                 if (_EnableTexSobel > 0.5)

@@ -17,7 +17,7 @@ float4 ApplyNPREffect(float4 color, float2 uv, half3 worldNormal, half3 worldVie
     if (_EnableSobel < 0.5) return color;
 
     float  offset = _SobelSampleDist * 0.001;
-    float3 L      = float3(0.299, 0.587, 0.114);
+    float3 L      = float3(0.2126, 0.7152, 0.0722);
 
     float tl = dot(tex2D(u_BaseColorSampler, uv + float2(-offset,  offset)).rgb, L);
     float t  = dot(tex2D(u_BaseColorSampler, uv + float2( 0,       offset)).rgb, L);

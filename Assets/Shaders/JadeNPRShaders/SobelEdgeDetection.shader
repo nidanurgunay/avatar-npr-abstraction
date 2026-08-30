@@ -218,14 +218,14 @@ Shader "Custom/SobelEdgeDetection"
                 {
                     float offset = _InnerLineBlur * 0.001;
 
-                    float tl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,  offset)).rgb, float3(0.299, 0.587, 0.114));
-                    float t  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0,  offset)).rgb, float3(0.299, 0.587, 0.114));
-                    float tr = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,  offset)).rgb, float3(0.299, 0.587, 0.114));
-                    float l  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,       0)).rgb, float3(0.299, 0.587, 0.114));
-                    float r  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,       0)).rgb, float3(0.299, 0.587, 0.114));
-                    float bl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset, -offset)).rgb, float3(0.299, 0.587, 0.114));
-                    float b  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0, -offset)).rgb, float3(0.299, 0.587, 0.114));
-                    float br = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset, -offset)).rgb, float3(0.299, 0.587, 0.114));
+                    float tl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float t  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float tr = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,  offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float l  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset,       0)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float r  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset,       0)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float bl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-offset, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float b  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(      0, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
+                    float br = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2( offset, -offset)).rgb, float3(0.2126, 0.7152, 0.0722));
 
                     float sobelX = (tr + 2.0 * r + br) - (tl + 2.0 * l + bl);
                     float sobelY = (tl + 2.0 * t + tr) - (bl + 2.0 * b + br);

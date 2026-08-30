@@ -220,7 +220,7 @@ Shader "Custom/SobelEdgeDetection"
                 if (_EnableInnerLines > 0.5)
                 {
                     float off   = _InnerLineBlur * 0.001;
-                    float3 luma = float3(0.299, 0.587, 0.114);
+                    float3 luma = float3(0.2126, 0.7152, 0.0722);
 
                     float tl = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(-off,  off)).rgb, luma);
                     float t  = dot(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv + float2(   0,  off)).rgb, luma);
