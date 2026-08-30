@@ -161,7 +161,7 @@ Shader "NPR/AnisotropicKuwahara_Variant2"
 
             int   _KernelSize;
             int   _SectorCount;
-            float _Sharpness;     // q in paper eq. 6: inverse-std-dev exponent
+            float _Sharpness;     // q, the exponent of the Kyprianidis 2011 sector weighting (paper's typical value 8)
             float _Hardness;      // n: cosine sector weight exponent (higher = crisper sector edges)
             float _ZeroCrossing;  // unused; kept for C# feature compatibility
 
@@ -259,7 +259,7 @@ Shader "NPR/AnisotropicKuwahara_Variant2"
                 }
 
                 // Blend sectors weighted by inverse standard deviation (Bug 2+3 fix)
-                // w_k = 1/sigma_k^q  (Kyprianidis eq. 6)
+                // w_k = (max(tau_w, ||s_k||))^-q  (Kyprianidis 2011, Sec. 3.3.1, unnumbered)
                 float4 result = 0;
                 float  totalW = 0;
 
