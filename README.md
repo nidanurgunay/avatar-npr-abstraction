@@ -29,18 +29,25 @@ the architectural differences visible in the table below.
 
 ## Techniques and source files
 
-Technique numbering follows the thesis. On the Meta Avatars SDK, each technique is a `.cginc` selected by a
-shader keyword and dispatched from `Style2MetaAvatarCore.hlsl`.
+The table below maps each thesis technique to its source file. On the Meta Avatars SDK, each technique is a
+`.cginc` selected by a shader keyword and dispatched from `Style2MetaAvatarCore.hlsl`.
+
+Shader files carry descriptive names rather than version numbers, for two reasons. The numbering used during
+development ran ahead of the numbering in the thesis, since V1 was later split into the outline and toon
+shading techniques and X-Toon was inserted as V2.2. The Mixamo and Avaturn shaders are also cumulative: each
+one contains the outline pass, X-Toon shading and every operator introduced before it, so a file named after a
+single technique would misrepresent what it holds. `SobelEdgeDetection.shader`, for instance, is the full
+composite of outline, X-Toon shading and the Sobel operator.
 
 | Thesis | Technique | Mixamo / Avaturn | Meta Avatars SDK | SDK keyword |
 | --- | --- | --- | --- | --- |
-| V1 | Geometric silhouette outline | [`V1_ToonShading_GeometryOutline.shader`](Assets/Shaders/JadeNPRShaders/V1_ToonShading_GeometryOutline.shader), [`V1_InvertedHullOutline.shader`](Assets/Shaders/CommonNPRShaders/V1_InvertedHullOutline.shader) | `NPROutline` pass in [`Avatar-Meta-UGB.shader`](Assets/Shaders/MetaAvatarShaders/Avatar-Meta-UGB.shader) | `OUTLINE_PASS` |
-| V2 | Toon shading | [`V1_ToonShading_GeometryOutline.shader`](Assets/Shaders/JadeNPRShaders/V1_ToonShading_GeometryOutline.shader) | [`NPREffect_Toon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Toon.cginc) | `EFFECT_TOON` |
+| V1 | Geometric silhouette outline | [`ToonShading_Outline.shader`](Assets/Shaders/JadeNPRShaders/ToonShading_Outline.shader), [`InvertedHullOutline.shader`](Assets/Shaders/CommonNPRShaders/InvertedHullOutline.shader) | `NPROutline` pass in [`Avatar-Meta-UGB.shader`](Assets/Shaders/MetaAvatarShaders/Avatar-Meta-UGB.shader) | `OUTLINE_PASS` |
+| V2 | Toon shading | [`ToonShading_Outline.shader`](Assets/Shaders/JadeNPRShaders/ToonShading_Outline.shader) | [`NPREffect_Toon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Toon.cginc) | `EFFECT_TOON` |
 | V2.2 | X-Toon shading | [`XToon_2DRamp.shader`](Assets/Shaders/JadeNPRShaders/XToon_2DRamp.shader) | [`NPREffect_XToon.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_XToon.cginc) | `EFFECT_XTOON` |
-| V3 | Screen-space normal edge detection | [`V2_NormalEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/V2_NormalEdgeDetection.shader) | [`NPREffect_NormalEdge.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_NormalEdge.cginc) | `EFFECT_NORMAL_EDGE` |
-| V4 | Sobel edge detection | [`V3_SobelEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/V3_SobelEdgeDetection.shader) | [`NPREffect_Sobel.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Sobel.cginc) | `EFFECT_SOBEL` |
-| V4.2 | Gaussian prefiltered Sobel | [`V4_GaussianPreFilteredSobel.shader`](Assets/Shaders/JadeNPRShaders/V4_GaussianPreFilteredSobel.shader) | [`NPREffect_GaussianSobel.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_GaussianSobel.cginc) | `EFFECT_GAUSS_SOBEL` |
-| V5 | Hierarchical edge detection, multiple cues | [`HierarchicalEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/HierarchicalEdgeDetection.shader) + [`EdgeDetectionFeature.cs`](Assets/AvatarShaderExperimental/Scripts/Rendering/EdgeDetectionFeature.cs) | [`NPREffect_Hierarchical.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Hierarchical.cginc) | `EFFECT_HIERARCHICAL` |
+| V3 | Screen-space normal edge detection | [`NormalEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/NormalEdgeDetection.shader) | [`NPREffect_NormalEdge.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_NormalEdge.cginc) | `EFFECT_NORMAL_EDGE` |
+| V4 | Sobel edge detection | [`SobelEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/SobelEdgeDetection.shader) | [`NPREffect_Sobel.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Sobel.cginc) | `EFFECT_SOBEL` |
+| V4.2 | Gaussian prefiltered Sobel | [`GaussianPrefilteredSobel.shader`](Assets/Shaders/JadeNPRShaders/GaussianPrefilteredSobel.shader) | [`NPREffect_GaussianSobel.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_GaussianSobel.cginc) | `EFFECT_GAUSS_SOBEL` |
+| V5 | Hierarchical edge detection, multiple cues | [`PostProcess_HierarchicalEdgeDetection.shader`](Assets/Shaders/JadeNPRShaders/PostProcess_HierarchicalEdgeDetection.shader) + [`EdgeDetectionFeature.cs`](Assets/AvatarShaderExperimental/Scripts/Rendering/EdgeDetectionFeature.cs) | [`NPREffect_Hierarchical.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Hierarchical.cginc) | `EFFECT_HIERARCHICAL` |
 | V6 | Kuwahara painterly filter | [`AnisotropicKuwahara.shader`](Assets/Shaders/JadeNPRShaders/AnisotropicKuwahara.shader) + [`AnisotropicKuwaharaFeature.cs`](Assets/AvatarShaderExperimental/Scripts/Rendering/AnisotropicKuwaharaFeature.cs) | [`NPREffect_Kuwahara2.cginc`](Assets/Shaders/MetaAvatarShaders/NPREffect_Kuwahara2.cginc) | `EFFECT_KUWAHARA` |
 
 Avaturn uses the same technique set under [`Assets/Shaders/AvaturnNPRShaders/`](Assets/Shaders/AvaturnNPRShaders/).
@@ -50,9 +57,9 @@ both documented in Chapter 5 of the thesis.
 ### A note on V5
 
 Two files carry hierarchical edge detection for Mixamo and Avaturn, and only one matches the thesis. The
-results reported in the thesis were produced by `HierarchicalEdgeDetection.shader`, a URP renderer feature
+results reported in the thesis were produced by `PostProcess_HierarchicalEdgeDetection.shader`, a URP renderer feature
 running as a full-screen post-process. It applies the Roberts Cross operator to the real scene depth, normal
-and colour buffers. The similarly named `V5_HierarchicalGaussian.shader` is a later forward material shader
+and colour buffers. The similarly named `HierarchicalGaussian_Forward.shader` is a later forward material shader
 that approximates the same cues with screen-space derivatives, and it is not the implementation Chapter 5
 describes. Both are kept here so the historical record is complete.
 
@@ -80,8 +87,17 @@ are not part of the reported technique set.
 | [`Assets/AvatarShaderExperimental/Scenes/Kuwahara and hieararchical.unity`](Assets/AvatarShaderExperimental/Scenes/Kuwahara%20and%20hieararchical.unity) | V5 and V6 painterly filter tests |
 
 The three platform scenes share a common studio environment so that comparison renders use an equivalent
-viewpoint, as described in Chapter 5. The environment textures are third-party Asset Store packages and are
-not redistributed here, so the room geometry loads with placeholder materials. See [SETUP.md](SETUP.md).
+viewpoint, as described in Chapter 5.
+
+The Mixamo and Avaturn scenes each hold two avatars under a single `Avatars` group: `Avatar (Original)` with
+its unmodified materials, and `Avatar (NPR)` carrying the composite evaluated as condition C3, which combines
+the silhouette outline, X-Toon shading and Sobel edge detection. Every other stylisation is reproduced by
+assigning the matching material set to the avatar, so the scenes ship with one example of each rather than one
+avatar per technique.
+
+![Avaturn scene, unmodified avatar beside the stylised one](docs/images/scene_avaturn.png)
+
+![Mixamo scene, unmodified avatar beside the stylised one](docs/images/scene_mixamo.png)
 
 ---
 

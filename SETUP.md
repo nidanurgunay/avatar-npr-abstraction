@@ -43,11 +43,21 @@ Unity resolves these by GUID, and the samples import to a version-pinned path,
 same GUIDs and the scene relinks by itself. Installing a different SDK version writes a different folder, and
 the scene will open with missing references that have to be reassigned by hand.
 
-None of the SDK sample files were modified for this project, so re-importing them overwrites nothing.
+One SDK sample script was extended for this project. `AvatarSwitcher.cs` calls `SwitchPreset` on
+`SampleAvatarEntity`, a method that the stock sample does not define, and the project does not compile without
+it. After importing the samples, apply the patch:
+
+```
+patch -p1 < patches/SampleAvatarEntity_SwitchPreset.patch
+```
+
+That is the only sample file this project changes, so re-importing overwrites nothing else. The patch contains
+only the added method, not Meta's own code.
 
 Until the SDK is present, `Assets/Shaders/MetaAvatarShaders/` will not compile, because
-`Style2MetaAvatarCore.hlsl` includes headers from `Packages/com.meta.xr.sdk.avatars/`. The Mixamo and Avaturn
-scenes are unaffected and open normally.
+`Style2MetaAvatarCore.hlsl` includes headers from `Packages/com.meta.xr.sdk.avatars/`. A compilation failure in
+Unity is project wide rather than confined to one scene, meaning that the Mixamo and Avaturn scenes will not
+run either until the SDK, its samples and the patch are all in place.
 
 ### Shader integration hook
 
@@ -102,10 +112,9 @@ The shared studio environment uses two Asset Store packages that are not redistr
 - **Textures Pack Vol. 1** (`Assets/AvatarShaderExperimental/TexturesPart01/`), the brick and tile surfaces
 - **Yughues Free Flooring Materials** (`Assets/AvatarShaderExperimental/YughuesFreeFlooringMaterials/`)
 
-The room geometry loads without them and falls back to placeholder materials. Two specific materials will show
-as missing, `brick_03` in the `metavatars` scene and `M_YFFlM_05` in the floor setup. Nothing about the NPR
-techniques depends on these textures, so the shaders can be evaluated without restoring them. Reproducing the
-exact comparison figures from the thesis does require them.
+The three materials the scenes actually reference are included, `brick_03` and `brick_04` for the walls and
+`M_YFFlM_05` for the floor, together with their five textures. The rest of both packs is not redistributed.
+Nothing further needs to be installed for the scenes to render as shown in the README.
 
 The lighting configuration used for the comparison renders is a single directional light, elevated -30° and
 rotated -30° horizontally relative to the avatar forward vector, at 1.0 lux with a neutral white colour. The
